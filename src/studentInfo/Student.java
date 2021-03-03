@@ -1,0 +1,68 @@
+package studentInfo;
+
+import java.util.ArrayList;
+
+public class Student {
+
+    enum Grade {A, B, C, D, F}
+
+    final static int CREDITS_REQUIRED_FOR_FULL_TIME = 12;
+    final static String IN_STATE = "대전";
+    private final String name;
+    private int credit = 0;
+    private String state = "";
+    private ArrayList<Grade> grades = new ArrayList<>();
+
+    public Student(final String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isFullTime() {
+        return credit >= CREDITS_REQUIRED_FOR_FULL_TIME;
+    }
+
+    public void addCredit(int credit) {
+        this.credit += credit;
+    }
+
+    public int getCredit() {
+        return credit;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public boolean isInState() {
+        return IN_STATE.equals(this.state);
+    }
+
+
+    public double getGpa() {
+        if (grades.isEmpty())
+            return 0.0;
+
+        double total = 0.0;
+
+        for (Grade grade : grades)
+            total += gradePointsFor(grade);
+
+        return total / grades.size();
+    }
+
+    private int gradePointsFor(Grade grade) {
+        if (grade == Grade.A) return 4;
+        if (grade == Grade.B) return 3;
+        if (grade == Grade.C) return 2;
+        if (grade == Grade.D) return 1;
+        return 0;
+    }
+
+    public void addGrade(Grade grade) {
+        grades.add(grade);
+    }
+}

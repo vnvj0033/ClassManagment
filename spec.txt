@@ -1,0 +1,22 @@
+[-] Student 객체는 이름을 갖는다.
+[-] Student의 getName()을 호출하면 이름을 반환한다.
+
+[-] CourseSession 객체는 개설 학과, 과목 번호를 갖는다.
+[-] CourseSession 객체는 학생을 등록한다.
+[-] CourseSession은 등록한 학생수를 반환한다.
+[-] CourseSession은 등록한 학생을 반환한다.
+[-] CourseSession은 강의 시작날짜, 강의 끝나는 날짜를 갖는다.
+
+[-] CourseSession은 학생 이름을 나열하는 보고서를 반환한다.
+[-] RosterReporter 객체는 CourseSession의 보고서를 반환한다.
+
+[-] DateUtil에 있는 createDate 인스턴스 메서드를 클래스 메서드(유틸리티 메서드)로 바꾼다.
+[-] CourseSession에 강의의 전체 갯수를 반환하는 클래스 변수 count를 만든다.
+[-] CourseSession의 count 클래스를 변수에 직접 접근하는 대신 getCount 클래스 메서드를 통해 접근한다.
+[-] CourseSession의 count를 직접 값을 증가시키는 대신 private increamentCount 클래스 메서드를 통해 증가시킨다.
+[-] CourseSession에서 create 클래스 메서드(팩토리 메서드)를 만들어서 CourseSession 객체를 생성한다.
+[-] Student에서 isFullTime 메소드는 학생이 fullTime인지 아닌지 Boolean을 반환한다.
+[-] CourseSession에서 학생이 수강신청을 했을때 수강학점을 늘리도록 수정한다.
+
+[-] Student에서 학생이 지역을 저장하고 대전에 있는지 판단한다.
+[ ] CourseReport는 학과과목과 과목번호순으로 정렬된다.
