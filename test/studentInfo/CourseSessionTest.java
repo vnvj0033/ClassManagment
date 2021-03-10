@@ -66,6 +66,4 @@ public class CourseSessionTest {
         CourseSession.create("","",new Date());
         assertEquals(2, CourseSession.getCount());
     }
-
-
 }
