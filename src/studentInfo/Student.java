@@ -2,7 +2,7 @@ package studentInfo;
 
 import java.util.ArrayList;
 
-public class Student {
+public class Student{
 
     enum Grade {A, B, C, D, F}
 
@@ -12,6 +12,8 @@ public class Student {
     private int credit = 0;
     private String state = "";
     private ArrayList<Grade> grades = new ArrayList<>();
+    private boolean isHonors = false;
+    private GradingStrategy gradingStrategy = new RegularGradingStrategy();
 
     public Student(final String name) {
         this.name = name;
@@ -41,6 +43,17 @@ public class Student {
         return IN_STATE.equals(this.state);
     }
 
+    public void setHonors(){
+        isHonors = true;
+    }
+
+    void setGradingStrategy(GradingStrategy gradingStrategy){
+        this.gradingStrategy = gradingStrategy;
+    }
+
+    int gradPointsFor(Grade grade){
+        return gradingStrategy.getGradePointsFor(grade);
+    }
 
     public double getGpa() {
         if (grades.isEmpty())
@@ -49,17 +62,13 @@ public class Student {
         double total = 0.0;
 
         for (Grade grade : grades)
-            total += gradePointsFor(grade);
+            total += gradingStrategy.getGradePointsFor(grade);
 
         return total / grades.size();
     }
 
     private int gradePointsFor(Grade grade) {
-        if (grade == Grade.A) return 4;
-        if (grade == Grade.B) return 3;
-        if (grade == Grade.C) return 2;
-        if (grade == Grade.D) return 1;
-        return 0;
+        return gradingStrategy.getGradePointsFor(grade);
     }
 
     public void addGrade(Grade grade) {
