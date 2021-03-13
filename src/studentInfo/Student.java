@@ -13,7 +13,7 @@ public class Student{
     private String state = "";
     private ArrayList<Grade> grades = new ArrayList<>();
     private boolean isHonors = false;
-    private GradingStrategy gradingStrategy = new RegularGradingStrategy();
+    private GradingStrategy gradingStrategy = new BasicGradingStrategy();
 
     public Student(final String name) {
         this.name = name;

@@ -2,10 +2,6 @@ package studentInfo;
 
 public class BasicGradingStrategy implements GradingStrategy {
     public int getGradePointsFor(Student.Grade grade){
-        return basicGradePointFor(grade);
-    }
-
-    int basicGradePointFor(Student.Grade grade) {
         switch (grade){
             case A: return 4;
             case B: return 3;
