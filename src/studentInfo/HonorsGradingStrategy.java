@@ -1,9 +1,6 @@
 package studentInfo;
 
-public class HonorsGradingStrategy
-        extends BasicGradingStrategy
-        implements GradingStrategy{
-    @Override
+public class HonorsGradingStrategy extends BasicGradingStrategy {
     public int getGradePointsFor(Student.Grade grade) {
         int points = basicGradePointFor(grade);
         if (points > 0)
