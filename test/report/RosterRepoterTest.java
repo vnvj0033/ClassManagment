@@ -1,6 +1,8 @@
-package studentInfo;
+package report;
 
 import org.junit.jupiter.api.Test;
+import studentInfo.CourseSession;
+import studentInfo.Student;
 
 import java.util.Date;
 

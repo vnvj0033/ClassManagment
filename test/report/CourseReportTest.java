@@ -1,8 +1,10 @@
-package studentInfo;
+package report;
 
 import org.junit.jupiter.api.Test;
+import studentInfo.CourseSession;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static studentInfo.RosterRepoter.NEWLINE;
+import static report.RosterRepoter.NEWLINE;
 
 import java.util.Date;
 

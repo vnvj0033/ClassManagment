@@ -1,10 +1,11 @@
-package studentInfo;
+package report;
+
+import studentInfo.CourseSession;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
-import static studentInfo.RosterRepoter.NEWLINE;
+import static report.RosterRepoter.NEWLINE;
 
 
 public class CourseReport {

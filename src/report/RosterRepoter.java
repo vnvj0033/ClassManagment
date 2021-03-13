@@ -1,4 +1,7 @@
-package studentInfo;
+package report;
+
+import studentInfo.CourseSession;
+import studentInfo.Student;
 
 import java.util.ArrayList;
 

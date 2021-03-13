@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Student{
 
-    enum Grade {A, B, C, D, F}
+    public enum Grade {A, B, C, D, F}
 
     final static int CREDITS_REQUIRED_FOR_FULL_TIME = 12;
     final static String IN_STATE = "대전";
