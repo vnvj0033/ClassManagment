@@ -62,7 +62,7 @@ public class CourseSession implements Comparable<CourseSession> {
     public Date getEndDate() {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(getStartDate());
-        int numberOfDays = 16 * 7 - 3; // 16 weeks * days per week - 3 days
+        int numberOfDays = getSessionLength() * 7 - 3; // 16 weeks * days per week - 3 days
         calendar.add(Calendar.DAY_OF_YEAR, numberOfDays);
         return calendar.getTime();
     }
@@ -73,6 +73,10 @@ public class CourseSession implements Comparable<CourseSession> {
 
     private static void incrementCount() {
         CourseSession.count++;
+    }
+
+    protected int getSessionLength() {
+        return 16;
     }
 
     @Override

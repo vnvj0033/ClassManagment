@@ -19,11 +19,15 @@ public class SummerCourseSession extends CourseSession {
     public Date getEndDate() {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(getStartDate());
-        int sessionLength = 8;
         int daysInWeek = 7;
         int daysFromFridayToMonday = 3;
-        int numberOfDays = sessionLength * daysInWeek - daysFromFridayToMonday;
+        int numberOfDays = getSessionLength() * daysInWeek - daysFromFridayToMonday;
         calendar.add(Calendar.DAY_OF_YEAR, numberOfDays);
         return calendar.getTime();
+    }
+
+    @Override
+    protected int getSessionLength() {
+        return 8;
     }
 }
