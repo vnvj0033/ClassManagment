@@ -4,7 +4,23 @@ import java.util.ArrayList;
 
 public class Student{
 
-    public enum Grade {A, B, C, D, F}
+    public enum Grade {
+        A(4),
+        B(3),
+        C(2),
+        D(1),
+        F(0);
+
+        private int points;
+
+        Grade(int points){
+            this.points = points;
+        }
+
+        int getPoints(){
+            return points;
+        }
+    }
 
     final static int CREDITS_REQUIRED_FOR_FULL_TIME = 12;
     final static String IN_STATE = "대전";
