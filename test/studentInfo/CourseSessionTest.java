@@ -7,7 +7,7 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CourseSessionTest {
+public class CourseSessionTest extends SessionTest{
 
     static final int CREDITS = 3;
 
@@ -44,15 +44,17 @@ public class CourseSessionTest {
     void testEnrollStudents() {
         sut.enroll(student);
         assertEquals(CourseSessionTest.CREDITS, student.getCredit());
-        assertEquals(sut.getNumberOfStudunt(), 1);
+        assertEquals(sut.getNumberOfStudents(), 1);
 
         sut.enroll(student2);
         assertEquals(CourseSessionTest.CREDITS, student2.getCredit());
-        assertEquals(sut.getNumberOfStudunt(), 2);
+        assertEquals(sut.getNumberOfStudents(), 2);
     }
 
     @Test
     void testCourseDates() {
+        Date startDate = DateUtil.createDate(2003, 1, 6);
+        Session session = createSession("ENGL", "200", startDate);
         Date endDate = DateUtil.createDate(2003, 4, 25);
         assertEquals(sut.getEndDate(), endDate);
     }
@@ -64,5 +66,9 @@ public class CourseSessionTest {
         assertEquals(1, CourseSession.getCount());
         CourseSession.create("","",new Date());
         assertEquals(2, CourseSession.getCount());
+    }
+
+    protected Session createSession(String department, String number, Date startDate){
+        return CourseSession.create(department, number, startDate);
     }
 }
