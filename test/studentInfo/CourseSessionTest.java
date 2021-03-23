@@ -43,11 +43,11 @@ public class CourseSessionTest extends SessionTest{
     @Test
     void testEnrollStudents() {
         sut.enroll(student);
-        assertEquals(CourseSessionTest.CREDITS, student.getCredit());
+        assertEquals(CourseSessionTest.CREDITS, student.getCredits());
         assertEquals(sut.getNumberOfStudents(), 1);
 
         sut.enroll(student2);
-        assertEquals(CourseSessionTest.CREDITS, student2.getCredit());
+        assertEquals(CourseSessionTest.CREDITS, student2.getCredits());
         assertEquals(sut.getNumberOfStudents(), 2);
     }
 

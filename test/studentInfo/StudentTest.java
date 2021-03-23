@@ -7,31 +7,44 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StudentTest {
     @Test
     void testCreate() {
-        String name = "John";
-        Student student = new Student(name);
-        assertEquals(student.getName(), name);
+        final String firstStudentName = "Jane Doe";
+        Student firstStudent = new Student(firstStudentName);
+        assertEquals(firstStudent.getName(), firstStudentName);
+        assertEquals(firstStudent.getFirstName(), "Jane");
+        assertEquals(firstStudent.getLastName(), "Doe");
+        assertEquals(firstStudent.getMiddleName(), "");
 
-        name = "상엽";
-        student = new Student(name);
-        assertEquals(student.getName(), name);
+        final String secondStudentName = "Blow";
+        Student secondStudent = new Student(secondStudentName);
+        assertEquals(secondStudent.getName(), secondStudentName);
+        assertEquals(secondStudent.getFirstName(), "");
+        assertEquals(secondStudent.getLastName(), "Blow");
+        assertEquals(secondStudent.getMiddleName(), "");
+
+        final String thirdStudentName = "Raymond Douglas Davies";
+        Student thirdStudent = new Student(thirdStudentName);
+        assertEquals(thirdStudent.getName(), thirdStudentName);
+        assertEquals(thirdStudent.getFirstName(), "Raymond");
+        assertEquals(thirdStudent.getLastName(), "Davies");
+        assertEquals(thirdStudent.getMiddleName(), "Douglas");
     }
 
     @Test
     void testStudentStatus() {
         Student student = new Student("a");
-        assertEquals(0, student.getCredit());
+        assertEquals(0, student.getCredits());
         assertFalse(student.isFullTime());
 
         student.addCredit(3);
-        assertEquals(3, student.getCredit());
+        assertEquals(3, student.getCredits());
         assertFalse(student.isFullTime());
 
         student.addCredit(4);
-        assertEquals(7, student.getCredit());
+        assertEquals(7, student.getCredits());
         assertFalse(student.isFullTime());
 
         student.addCredit(5);
-        assertEquals(Student.CREDITS_REQUIRED_FOR_FULL_TIME, student.getCredit());
+        assertEquals(Student.CREDITS_REQUIRED_FOR_FULL_TIME, student.getCredits());
         assertTrue(student.isFullTime());
     }
 

@@ -35,13 +35,13 @@ abstract public class SessionTest {
     void testEnrollStudents() {
         Student student1 = new Student("Cain DiVoe");
         session.enroll(student1);
-        assertEquals(CREDITS, student1.getCredit());
+        assertEquals(CREDITS, student1.getCredits());
         assertEquals(1, session.getNumberOfStudents());
         assertEquals(student1, session.get(0));
 
         Student student2 = new Student("Coralee DeVaughn");
         session.enroll(student2);
-        assertEquals(CREDITS, student2.getCredit());
+        assertEquals(CREDITS, student2.getCredits());
         assertEquals(2, session.getNumberOfStudents());
         assertEquals(student1, session.get(0));
         assertEquals(student2, session.get(1));
