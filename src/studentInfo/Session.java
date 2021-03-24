@@ -42,7 +42,7 @@ abstract public class Session implements Comparable<Session> {
     }
 
     public void enroll(Student student) {
-        student.addCredit(numberOfCredits);
+        student.addCredits(numberOfCredits);
         students.add(student);
     }
 
@@ -66,5 +66,18 @@ abstract public class Session implements Comparable<Session> {
         int numberOfDays = getSessionLength() * 7 - 3; // 16 weeks * days per week - 3 days
         calendar.add(Calendar.DAY_OF_YEAR, numberOfDays);
         return calendar.getTime();
+    }
+
+    public double averageGpaForPartTimeStudents() {
+        double total = 0.0;
+        int count = 0;
+        for (Student student : students) {
+            if (student.isFullTime())
+                continue;
+            count++;
+            total += student.getGpa();
+        }
+        if (count == 0) return 0.0;
+        return total / count;
     }
 }

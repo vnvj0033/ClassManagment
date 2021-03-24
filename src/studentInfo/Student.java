@@ -76,7 +76,7 @@ public class Student {
         return credits >= CREDITS_REQUIRED_FOR_FULL_TIME;
     }
 
-    public void addCredit(int credit) {
+    public void addCredits(int credit) {
         this.credits += credit;
     }
 

@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ForLoopTest {
@@ -58,21 +61,68 @@ class ForLoopTest {
         assertEquals(sequence, sequenceUsingWhile(8, 8));
     }
 
+    @Test
+    void testEndTrim() {
+        assertEquals("", endTrim(""));
+        assertEquals(" x", endTrim(" x "));
+        assertEquals("y", endTrim("y"));
+        assertEquals("xaxa", endTrim("xaxa"));
+        assertEquals("", endTrim(" "));
+        assertEquals("xxx", endTrim("xxx   "));
+    }
+
+    @Test
+    void testLabeledBreak() {
+        List<List<String>> table = new ArrayList<>();
+
+        List<String> row1 = new ArrayList<>();
+        row1.add("5");
+        row1.add("2");
+        List<String> row2 = new ArrayList<>();
+        row2.add("3");
+        row2.add("4");
+
+        table.add(row1);
+        table.add(row2);
+        assertTrue(found(table, "3"));
+        assertFalse(found(table, "8"));
+    }
+
+    private boolean found(List<List<String>> table, String target) {
+        boolean found = false;
+        search:
+        for (List<String> row : table)
+            for (String value : row)
+                if (value.equals(target)) {
+                    found = true;
+                    break search;
+                }
+        return found;
+    }
+
+    private String endTrim(String source) {
+        int i = source.length();
+        while (--i >= 0)
+            if (source.charAt(i) != ' ')
+                break;
+        return source.substring(0, i + 1);
+    }
+
     private String sequenceUsingDo(int start, int stop) {
         StringBuilder builder = new StringBuilder();
         int i = start;
-        do{
-            if (i>start)
+        do {
+            if (i > start)
                 builder.append(',');
             builder.append(i);
-        }while (++i <= stop);
+        } while (++i <= stop);
         return builder.toString();
     }
 
     private String sequenceUsingFor(int start, int stop) {
         StringBuilder builder = new StringBuilder();
-        for (int i = start; i<=stop;i++){
-            if (i>start)
+        for (int i = start; i <= stop; i++) {
+            if (i > start)
                 builder.append(',');
             builder.append(i);
         }
@@ -83,15 +133,12 @@ class ForLoopTest {
 
         StringBuilder builder = new StringBuilder();
         int i = start;
-        while (i <= stop){
-            if (i>start)
+        while (i <= stop) {
+            if (i > start)
                 builder.append(',');
             builder.append(i);
             i++;
         }
         return builder.toString();
     }
-
-
-
 }
