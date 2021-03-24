@@ -41,7 +41,6 @@ public class Student {
         this.name = fullName;
         credits = 0;
         List<String> nameParts = split(fullName);
-        System.out.println(nameParts);
         setName(nameParts);
     }
 

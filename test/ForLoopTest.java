@@ -32,32 +32,66 @@ class ForLoopTest {
 
     @Test
     void testFibonacci() {
-        assertEquals(0, fib(0));
-        assertEquals(1, fib(1));
-        assertEquals(1, fib(2));
-        assertEquals(2, fib(3));
-        assertEquals(3, fib(4));
-        assertEquals(5, fib(5));
-        assertEquals(8, fib(6));
-        assertEquals(13, fib(7));
-        assertEquals(21, fib(8));
-        assertEquals(34, fib(9));
-        assertEquals(55, fib(10));
+        assertEquals(0, ForLoop.fib(0));
+        assertEquals(1, ForLoop.fib(1));
+        assertEquals(1, ForLoop.fib(2));
+        assertEquals(2, ForLoop.fib(3));
+        assertEquals(3, ForLoop.fib(4));
+        assertEquals(5, ForLoop.fib(5));
+        assertEquals(8, ForLoop.fib(6));
+        assertEquals(13, ForLoop.fib(7));
+        assertEquals(21, ForLoop.fib(8));
+        assertEquals(34, ForLoop.fib(9));
+        assertEquals(55, ForLoop.fib(10));
     }
 
-    private int fib(int x) {
-        if (x == 0) return 0;
-        if (x == 1) return 1;
-        int fib = 0;
-        int nextFib = 1;
-        int index = 0;
-        int temp;
-        do {
-            temp = fib + nextFib;
-            fib = nextFib;
-            nextFib = temp;
-        } while (++index < x);
-        return fib;
+    @Test
+    void testCimmas() {
+        String sequence = "1,2,3,4,5";
+        assertEquals(sequence, sequenceUsingDo(1, 5));
+        assertEquals(sequence, sequenceUsingFor(1, 5));
+        assertEquals(sequence, sequenceUsingWhile(1, 5));
+
+        sequence = "8";
+        assertEquals(sequence, sequenceUsingDo(8, 8));
+        assertEquals(sequence, sequenceUsingFor(8, 8));
+        assertEquals(sequence, sequenceUsingWhile(8, 8));
     }
+
+    private String sequenceUsingDo(int start, int stop) {
+        StringBuilder builder = new StringBuilder();
+        int i = start;
+        do{
+            if (i>start)
+                builder.append(',');
+            builder.append(i);
+        }while (++i <= stop);
+        return builder.toString();
+    }
+
+    private String sequenceUsingFor(int start, int stop) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = start; i<=stop;i++){
+            if (i>start)
+                builder.append(',');
+            builder.append(i);
+        }
+        return builder.toString();
+    }
+
+    private String sequenceUsingWhile(int start, int stop) {
+
+        StringBuilder builder = new StringBuilder();
+        int i = start;
+        while (i <= stop){
+            if (i>start)
+                builder.append(',');
+            builder.append(i);
+            i++;
+        }
+        return builder.toString();
+    }
+
+
 
 }
