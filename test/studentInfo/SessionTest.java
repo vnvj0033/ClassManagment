@@ -3,7 +3,9 @@ package studentInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -78,6 +80,24 @@ abstract public class SessionTest {
         session.enroll(partTimer2);
 
         assertEquals(3.5, session.averageGpaForPartTimeStudents(), 0.05);
+    }
+
+    @Test
+    void testIterate(){
+        enrollStudents(session);
+
+        List<Student> results = new ArrayList<>();
+        for (Student student : session){
+            results.add(student);
+        }
+
+        assertEquals(session.getAllStudents(), results);
+    }
+
+    private void enrollStudents(Session session) {
+        session.enroll(new Student("1"));
+        session.enroll(new Student("2"));
+        session.enroll(new Student("3"));
     }
 
     private Student createFullTimeStudent() {

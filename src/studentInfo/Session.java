@@ -2,7 +2,7 @@ package studentInfo;
 
 import java.util.*;
 
-abstract public class Session implements Comparable<Session> {
+abstract public class Session implements Comparable<Session>, Iterable<Student> {
 
     private static int count = 0;
     private String department;
@@ -71,6 +71,7 @@ abstract public class Session implements Comparable<Session> {
     public double averageGpaForPartTimeStudents() {
         double total = 0.0;
         int count = 0;
+
         for (Student student : students) {
             if (student.isFullTime())
                 continue;
@@ -79,5 +80,9 @@ abstract public class Session implements Comparable<Session> {
         }
         if (count == 0) return 0.0;
         return total / count;
+    }
+
+    public Iterator<Student> iterator() {
+        return students.iterator();
     }
 }
