@@ -1,9 +1,7 @@
 package studentInfo;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class Student {
 
@@ -61,18 +59,6 @@ public class Student {
         return total;
     }
 
-    private void setName(List<String> nameParts) {
-        this.lastName = removeLast(nameParts);
-        String name = removeLast(nameParts);
-        System.out.println(name);
-        if (nameParts.isEmpty())
-            this.firstName = name;
-        else {
-            this.middleName = name;
-            this.firstName = removeLast(nameParts);
-        }
-    }
-
     public String getName() {
         return name;
     }
@@ -125,6 +111,10 @@ public class Student {
         return total / grades.size();
     }
 
+    public void addGrade(Grade grade) {
+        grades.add(grade);
+    }
+
     void setGradingStrategy(GradingStrategy gradingStrategy) {
         this.gradingStrategy = gradingStrategy;
     }
@@ -168,7 +158,15 @@ public class Student {
         return gradingStrategy.getGradePointsFor(grade);
     }
 
-    public void addGrade(Grade grade) {
-        grades.add(grade);
+    private void setName(List<String> nameParts) {
+        this.lastName = removeLast(nameParts);
+        String name = removeLast(nameParts);
+        System.out.println(name);
+        if (nameParts.isEmpty())
+            this.firstName = name;
+        else {
+            this.middleName = name;
+            this.firstName = removeLast(nameParts);
+        }
     }
 }
