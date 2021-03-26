@@ -1,6 +1,7 @@
 package studentInfo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Student {
@@ -22,12 +23,14 @@ public class Student {
             return points;
         }
 
-    }
 
+    }
     final static int CREDITS_REQUIRED_FOR_FULL_TIME = 12;
+
     final static String IN_STATE = "대전";
 
     private final String name;
+
     private String firstName = "";
     private String middleName = "";
     private String lastName;
@@ -36,12 +39,25 @@ public class Student {
     private ArrayList<Grade> grades = new ArrayList<>();
     private boolean isHonors = false;
     private GradingStrategy gradingStrategy = new BasicGradingStrategy();
+    private List<Integer> charges = new ArrayList();
 
     public Student(final String fullName) {
         this.name = fullName;
         credits = 0;
         List<String> nameParts = split(fullName);
         setName(nameParts);
+    }
+
+    public void addCharge(int charge) {
+        charges.add(charge);
+    }
+
+    public int totalCharges() {
+        int total = 0;
+        for (int charge : charges){
+            total += charge;
+        }
+        return total;
     }
 
     private void setName(List<String> nameParts) {

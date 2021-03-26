@@ -87,6 +87,15 @@ public class StudentTest {
         assertGpa(createHonorsStudent(Student.Grade.F),0.0);
     }
 
+    @Test
+    void testCharges() {
+        Student student = new Student("a");
+        student.addCharge(500);
+        student.addCharge(200);
+        student.addCharge(399);
+        assertEquals(1099, student.totalCharges());
+    }
+
     private Student createHonorsStudent() {
         Student student = new Student("a");
         student.setGradingStrategy(new HonorsGradingStrategy());
