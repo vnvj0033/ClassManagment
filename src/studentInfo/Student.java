@@ -3,6 +3,7 @@ package studentInfo;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class Student {
 
@@ -132,21 +133,10 @@ public class Student {
         return gradingStrategy.getGradePointsFor(grade);
     }
 
-    private List<String> split(String name) {
+    private List<String> split(String fullName) {
         List<String> results = new ArrayList<>();
-
-        StringBuffer word = new StringBuffer();
-        for (int index = 0; index < name.length(); index++) {
-            char ch = name.charAt(index);
-            if (!Character.isWhitespace(ch))
-                word.append(ch);
-            else if (word.length() > 0) {
-                results.add(word.toString());
-                word = new StringBuffer();
-            }
-        }
-        if (word.length() > 0)
-            results.add(word.toString());
+        for (String name : fullName.split(" "))
+            results.add(name);
         return results;
     }
 
