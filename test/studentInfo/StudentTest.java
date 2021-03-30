@@ -98,11 +98,14 @@ public class StudentTest {
 
     @Test
     void testBadlyFormattedName() {
+        String studentName = "a b c d";
         try {
-            new Student("a b c d");
+            new Student(studentName);
             fail("expected excepion from 4-part name");
         }catch (StudentNameFormaException expectedException){
-            assertEquals("Student name 'a b c d' contains more than 3 parts",
+            assertEquals(
+                    String.format(Student.TOO_MANY_NAME_PARTS_MSG,
+                            studentName, Student.MAX_NAME_PARTS),
                     expectedException.getMessage());
         }
     }

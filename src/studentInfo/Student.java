@@ -12,8 +12,9 @@ public class Student {
         D(1),
         F(0);
 
-        private int points;
 
+
+        private int points;
         Grade(int points) {
             this.points = points;
         }
@@ -23,7 +24,11 @@ public class Student {
         }
 
 
+
     }
+
+    final static String TOO_MANY_NAME_PARTS_MSG = "Student name '%s' contains more than %d parts";
+    final static int MAX_NAME_PARTS = 3;
     final static int CREDITS_REQUIRED_FOR_FULL_TIME = 12;
 
     final static String IN_STATE = "대전";
@@ -45,9 +50,8 @@ public class Student {
         credits = 0;
         List<String> nameParts = split(fullName);
         final int maximumNumberOfNameParts = 3;
-        if (nameParts.size() > maximumNumberOfNameParts){
-            String message = "Student name '" + fullName +
-                    "' contains more than " + maximumNumberOfNameParts + " parts";
+        if (nameParts.size() > Student.MAX_NAME_PARTS) {
+            String message = String.format(TOO_MANY_NAME_PARTS_MSG, fullName, MAX_NAME_PARTS);
             throw new StudentNameFormaException(message);
         }
         setName(nameParts);
@@ -59,7 +63,7 @@ public class Student {
 
     public int totalCharges() {
         int total = 0;
-        for (int charge : charges){
+        for (int charge : charges) {
             total += charge;
         }
         return total;
