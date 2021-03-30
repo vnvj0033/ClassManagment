@@ -71,6 +71,19 @@ abstract public class Session implements Comparable<Session>, Iterable<Student> 
         return calendar.getTime();
     }
 
+    public void setUrl(String urlString) throws SessionException {
+        try {
+            this.url = new URL(urlString);
+        }catch (MalformedURLException e){
+            log(e);
+            throw new SessionException(e);
+        }
+    }
+
+    public URL getUrl() {
+        return url;
+    }
+
     public double averageGpaForPartTimeStudents() {
         double total = 0.0;
         int count = 0;
@@ -89,11 +102,7 @@ abstract public class Session implements Comparable<Session>, Iterable<Student> 
         return students.iterator();
     }
 
-    public void setUrl(String urlString) throws MalformedURLException {
-        this.url = new URL(urlString);
-    }
+    private void log(Exception e) {
 
-    public URL getUrl() {
-        return url;
     }
 }
