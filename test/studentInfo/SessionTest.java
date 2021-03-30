@@ -3,12 +3,12 @@ package studentInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static studentInfo.DateUtil.createDate;
 
 abstract public class SessionTest {
@@ -92,6 +92,23 @@ abstract public class SessionTest {
         }
 
         assertEquals(session.getAllStudents(), results);
+    }
+
+    @Test
+    void testSessionUrl() throws MalformedURLException {
+        final String url = "http://course.langrsoft.com/cmsc300";
+        session.setUrl(url);
+        assertEquals(url, session.getUrl().toString());
+    }
+
+    @Test
+    void testInvalidSessionUrl() {
+        final String url = "httsp://course.langrsoft.com/cmsc300";
+        try{
+            session.setUrl(url);
+            fail("expected exception due to invalid protocol in URL");
+        }catch (MalformedURLException success){
+        }
     }
 
     private void enrollStudents(Session session) {
