@@ -44,6 +44,9 @@ public class Student {
         this.name = fullName;
         credits = 0;
         List<String> nameParts = split(fullName);
+        final int maximumNumberOfNameParts = 3;
+        if (nameParts.size() > maximumNumberOfNameParts)
+            throw new StudentNameFormaException();
         setName(nameParts);
     }
 

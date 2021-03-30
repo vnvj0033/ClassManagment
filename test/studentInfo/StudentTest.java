@@ -96,6 +96,15 @@ public class StudentTest {
         assertEquals(1099, student.totalCharges());
     }
 
+    @Test
+    void testBadlyFormattedName() {
+        try {
+            new Student("a b c d");
+            fail("expected excepion from 4-part name");
+        }catch (StudentNameFormaException success){
+        }
+    }
+
     private Student createHonorsStudent() {
         Student student = new Student("a");
         student.setGradingStrategy(new HonorsGradingStrategy());
