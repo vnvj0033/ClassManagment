@@ -2,6 +2,7 @@ package studentInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Student {
 
@@ -12,9 +13,8 @@ public class Student {
         D(1),
         F(0);
 
-
-
         private int points;
+
         Grade(int points) {
             this.points = points;
         }
@@ -22,14 +22,12 @@ public class Student {
         int getPoints() {
             return points;
         }
-
-
-
     }
 
     final static String TOO_MANY_NAME_PARTS_MSG = "Student name '%s' contains more than %d parts";
     final static int MAX_NAME_PARTS = 3;
     final static int CREDITS_REQUIRED_FOR_FULL_TIME = 12;
+    final static Logger logger = Logger.getLogger(Student.class.getName());
 
     final static String IN_STATE = "대전";
 
@@ -49,9 +47,9 @@ public class Student {
         this.name = fullName;
         credits = 0;
         List<String> nameParts = split(fullName);
-        final int maximumNumberOfNameParts = 3;
-        if (nameParts.size() > Student.MAX_NAME_PARTS) {
+        if (nameParts.size() > MAX_NAME_PARTS) {
             String message = String.format(TOO_MANY_NAME_PARTS_MSG, fullName, MAX_NAME_PARTS);
+            logger.info(message);
             throw new StudentNameFormaException(message);
         }
         setName(nameParts);
@@ -178,5 +176,10 @@ public class Student {
             this.middleName = name;
             this.firstName = removeLast(nameParts);
         }
+    }
+
+    private void log(String message) {
+        Logger logger = Logger.getLogger(getClass().getName());
+        logger.info(message);
     }
 }

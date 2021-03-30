@@ -2,6 +2,9 @@ package studentInfo;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.logging.Handler;
+import java.util.logging.Logger;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentTest {
@@ -60,6 +63,7 @@ public class StudentTest {
     }
 
     private static final double GRADE_TOLERANCE = 0.05;
+
     @Test
     void testCalculateGpa() {
         Student student = new Student("a");
@@ -78,13 +82,13 @@ public class StudentTest {
     }
 
     @Test
-    public void testCalculateHonorsStudentGpa(){
-        assertGpa(createHonorsStudent(),0.0);
-        assertGpa(createHonorsStudent(Student.Grade.A),5.0);
-        assertGpa(createHonorsStudent(Student.Grade.B),4.0);
-        assertGpa(createHonorsStudent(Student.Grade.C),3.0);
-        assertGpa(createHonorsStudent(Student.Grade.D),2.0);
-        assertGpa(createHonorsStudent(Student.Grade.F),0.0);
+    public void testCalculateHonorsStudentGpa() {
+        assertGpa(createHonorsStudent(), 0.0);
+        assertGpa(createHonorsStudent(Student.Grade.A), 5.0);
+        assertGpa(createHonorsStudent(Student.Grade.B), 4.0);
+        assertGpa(createHonorsStudent(Student.Grade.C), 3.0);
+        assertGpa(createHonorsStudent(Student.Grade.D), 2.0);
+        assertGpa(createHonorsStudent(Student.Grade.F), 0.0);
     }
 
     @Test
@@ -98,16 +102,23 @@ public class StudentTest {
 
     @Test
     void testBadlyFormattedName() {
-        String studentName = "a b c d";
+        Handler handler = new TestHandler();
+        Student.logger.addHandler(handler);
+
+        final String studentName = "a b c d";
         try {
             new Student(studentName);
-            fail("expected excepion from 4-part name");
-        }catch (StudentNameFormaException expectedException){
-            assertEquals(
-                    String.format(Student.TOO_MANY_NAME_PARTS_MSG,
-                            studentName, Student.MAX_NAME_PARTS),
-                    expectedException.getMessage());
+            fail("expected exception from 4-part name");
+        } catch (StudentNameFormaException expectedException) {
+            String message = String.format(Student.TOO_MANY_NAME_PARTS_MSG,
+                    studentName, Student.MAX_NAME_PARTS);
+            assertEquals(message, expectedException.getMessage());
+            assertEquals(message, ((TestHandler) handler).getMessage());
         }
+    }
+
+    private boolean wasLogged(String message, TestHandler handler) {
+        return message.equals(handler.getMessage());
     }
 
     private Student createHonorsStudent() {
