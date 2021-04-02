@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 
 public class Student {
 
+
+
     public enum Grade {
         A(4),
         B(3),
@@ -13,8 +15,8 @@ public class Student {
         D(1),
         F(0);
 
-        private int points;
 
+        private int points;
         Grade(int points) {
             this.points = points;
         }
@@ -22,6 +24,7 @@ public class Student {
         int getPoints() {
             return points;
         }
+
     }
 
     final static String TOO_MANY_NAME_PARTS_MSG = "Student name '%s' contains more than %d parts";
@@ -33,6 +36,7 @@ public class Student {
 
     private final String name;
 
+    private String id;
     private String firstName = "";
     private String middleName = "";
     private String lastName;
@@ -65,6 +69,14 @@ public class Student {
             total += charge;
         }
         return total;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
