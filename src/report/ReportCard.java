@@ -14,12 +14,12 @@ public class ReportCard {
 
     private Map<Student.Grade, String> message = null;
 
-    public String getMessage(Student.Grade grade){
+    public String getMessage(Student.Grade grade) {
         return getMessages().get(grade);
     }
 
-    private Map<Student.Grade, String> getMessages() {
-        if (message ==null)
+    public Map<Student.Grade, String> getMessages() {
+        if (message == null)
             loadMessages();
         return message;
     }
