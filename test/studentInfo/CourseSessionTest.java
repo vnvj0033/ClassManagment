@@ -11,7 +11,7 @@ public class CourseSessionTest extends SessionTest{
 
     static final int CREDITS = 3;
 
-    CourseSession sut;
+    Session sut;
     Student student;
     Student student2;
     Date startDate;
@@ -19,16 +19,31 @@ public class CourseSessionTest extends SessionTest{
     @BeforeEach
     void setUp() {
         startDate = DateUtil.createDate(2003, 1, 6);
-        sut = CourseSession.create("전산학부", "101", startDate);
+        sut = createSession(createCourse(), startDate);
         sut.setNumberOfCredits(CourseSessionTest.CREDITS);
         student = new Student("준성");
         student2 = new Student("상민");
     }
 
     @Test
+    void testCourseDates() {
+        Date startDate = DateUtil.createDate(2003, 1, 6);
+        Session session = createSession(createCourse(), startDate);
+        Date sixteenWeeksOut = DateUtil.createDate(2003, 4, 25);
+        assertEquals(session.getEndDate(), sixteenWeeksOut);
+    }
+
+    private Course createCourse() {
+        return new Course("ENGL", "101");
+    }
+
+    @Test
     void testCreate() {
-        assertEquals(sut.getDepartment(), "전산학부");
-        assertEquals(sut.getNumber(), "101");
+        CourseSession.resetCount();
+        createSession(createCourse(), new Date());
+        assertEquals(1, CourseSession.getCount());
+        createSession(createCourse(), new Date());
+        assertEquals(2, CourseSession.getCount());
     }
 
     @Test
@@ -52,23 +67,15 @@ public class CourseSessionTest extends SessionTest{
     }
 
     @Test
-    void testCourseDates() {
-        Date startDate = DateUtil.createDate(2003, 1, 6);
-        Session session = createSession("ENGL", "200", startDate);
-        Date endDate = DateUtil.createDate(2003, 4, 25);
-        assertEquals(sut.getEndDate(), endDate);
-    }
-
-    @Test
     void testCount() {
         CourseSession.resetCount();
-        CourseSession.create("","",new Date());
+        createSession(createCourse(), new Date());
         assertEquals(1, CourseSession.getCount());
-        CourseSession.create("","",new Date());
+        createSession(createCourse(), new Date());
         assertEquals(2, CourseSession.getCount());
     }
 
-    protected Session createSession(String department, String number, Date startDate){
-        return CourseSession.create(department, number, startDate);
+    protected Session createSession(Course course, Date date){
+        return CourseSession.create(course, date);
     }
 }

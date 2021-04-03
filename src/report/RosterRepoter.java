@@ -1,6 +1,6 @@
 package report;
 
-import studentInfo.CourseSession;
+import studentInfo.Session;
 import studentInfo.Student;
 
 import java.util.ArrayList;
@@ -10,9 +10,9 @@ public class RosterRepoter {
     static final String ROSTER_REPORT_HEADER = "Student" + NEWLINE + "-" + NEWLINE;
     static final String ROSTER_REPORT_FOOTER = NEWLINE + "# student = ";
 
-    private CourseSession session;
+    private Session session;
 
-    public RosterRepoter(CourseSession session) {
+    public RosterRepoter(Session session) {
         this.session = session;
     }
 

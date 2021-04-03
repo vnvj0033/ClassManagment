@@ -7,16 +7,14 @@ import java.util.*;
 abstract public class Session implements Comparable<Session>, Iterable<Student> {
 
     private static int count = 0;
-    private String department;
-    private String number;
     private ArrayList<Student> students = new ArrayList<>();
     private Date startDate;
     private int numberOfCredits;
     private URL url;
+    private Course course;
 
-    protected Session(String department, String number, Date startDate) {
-        this.department = department;
-        this.number = number;
+    protected Session(Course course, Date startDate) {
+        this.course = course;
         this.startDate = startDate;
     }
 
@@ -33,11 +31,11 @@ abstract public class Session implements Comparable<Session>, Iterable<Student> 
     }
 
     public String getDepartment() {
-        return department;
+        return course.getDepartment();
     }
 
     public String getNumber() {
-        return number;
+        return course.getNumber();
     }
 
     public int getNumberOfStudents() {

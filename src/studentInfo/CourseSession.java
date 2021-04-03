@@ -6,12 +6,12 @@ public class CourseSession extends Session{
 
     public static int count;
 
-    public static CourseSession create(String department, String number, Date startDate) {
-        return new CourseSession(department, number, startDate);
+    public static Session create(Course course, Date startDate) {
+        return new CourseSession(course, startDate);
     }
 
-    protected CourseSession(String department, String number, Date startDate) {
-        super(department, number, startDate);
+    protected CourseSession(Course course, Date startDate) {
+        super(course, startDate);
         CourseSession.incrementCount();
     }
 
