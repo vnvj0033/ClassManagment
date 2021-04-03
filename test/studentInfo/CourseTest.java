@@ -53,9 +53,24 @@ public class CourseTest {
     void testHashCode() {
         Course courseA = new Course("NURS", "201");
         Course courseAPrime = new Course("NURS", "201");
-        
+
         assertEquals(courseA.hashCode(), courseAPrime.hashCode());
         // consistency
         assertEquals(courseA.hashCode(), courseA.hashCode());
+    }
+
+    @Test
+    void testHashCodePerformance() {
+        final int count = 10000;
+        long start = System.currentTimeMillis();
+        Map<Course, String> map = new HashMap<>();
+        for (int i = 0; i < count; i++) {
+            Course course = new Course("C" + i, "" + i);
+            map.put(course, "");
+        }
+        long stop = System.currentTimeMillis();
+        long elapsed = stop - start;
+        final long arbitraryThreshold = 200;
+        assertTrue(elapsed < arbitraryThreshold, "elapsed time = " + elapsed);
     }
 }
