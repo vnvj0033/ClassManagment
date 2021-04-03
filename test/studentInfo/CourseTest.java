@@ -40,5 +40,7 @@ public class CourseTest {
         // comparison to null
         assertFalse(courseA.equals(null));
 
+        assertFalse(courseA.equals("CMSC-120"));
+
     }
 }
