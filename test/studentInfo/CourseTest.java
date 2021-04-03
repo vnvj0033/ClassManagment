@@ -2,8 +2,12 @@ package studentInfo;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CourseTest {
 
@@ -40,7 +44,18 @@ public class CourseTest {
         // comparison to null
         assertFalse(courseA.equals(null));
 
+        // apples & oranges
         assertFalse(courseA.equals("CMSC-120"));
 
+    }
+
+    @Test
+    void testHashCode() {
+        Course courseA = new Course("NURS", "201");
+        Course courseAPrime = new Course("NURS", "201");
+        
+        assertEquals(courseA.hashCode(), courseAPrime.hashCode());
+        // consistency
+        assertEquals(courseA.hashCode(), courseA.hashCode());
     }
 }
