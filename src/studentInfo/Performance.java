@@ -7,7 +7,6 @@ public class Performance {
         tests = new int[numberOfTests];
     }
 
-
     public void set(int testNumber, int score) {
         tests[testNumber] = score;
     }
@@ -17,10 +16,10 @@ public class Performance {
     }
 
     public double average() {
-        double total = 0.0;
+        int total = 0;
         for (int score : tests)
             total += score;
-        return total / tests.length;
+        return (double) total / tests.length;
     }
 
     public void setScores(int score1, int score2, int score3, int score4) {
