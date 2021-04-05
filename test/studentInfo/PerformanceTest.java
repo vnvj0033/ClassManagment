@@ -3,6 +3,7 @@ package studentInfo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PerformanceTest {
 
@@ -44,5 +45,11 @@ public class PerformanceTest {
 
         performance.setScores(100, 90);
         assertEquals(95.0, performance.average(), tolerance);
+    }
+
+    @Test
+    void testAverageForNoScores() {
+        Performance performance = new Performance();
+        assertTrue(Double.isNaN(performance.average()));
     }
 }
