@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class FloatInfinityTest {
+public class NumberTypeTest {
 
     @Test
     void testFloatInfinity() {
@@ -37,6 +37,5 @@ public class FloatInfinityTest {
         assertTrue(Float.isNaN(Float.NEGATIVE_INFINITY / Float.NEGATIVE_INFINITY));
         assertTrue(Float.isNaN(Float.NEGATIVE_INFINITY % Float.NEGATIVE_INFINITY));
     }
-
 
 }

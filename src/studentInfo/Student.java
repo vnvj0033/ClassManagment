@@ -6,38 +6,48 @@ import java.util.logging.Logger;
 
 public class Student {
 
+    public enum Flag {
+        ON_CAMPUS(1),
+        TAX_EXEMPT(2),
+        MINOR(4),
+        TROUBLEMAKER(8);
 
+        private int mask;
 
+        Flag(int mask) {
+            this.mask = mask;
+        }
+
+    }
     public enum Grade {
         A(4),
         B(3),
         C(2),
         D(1),
         F(0);
-
-
         private int points;
-        Grade(int points) {
-            this.points = points;
-        }
-
         int getPoints() {
             return points;
         }
 
-    }
+        Grade(int points) {
+            this.points = points;
+        }
 
+    }
     final static String TOO_MANY_NAME_PARTS_MSG = "Student name '%s' contains more than %d parts";
     final static int MAX_NAME_PARTS = 3;
     final static int CREDITS_REQUIRED_FOR_FULL_TIME = 12;
     final static Logger logger = Logger.getLogger(Student.class.getName());
-
     final static String IN_STATE = "대전";
+    private int settings = 0x0;
 
     private final String name;
 
     private String id;
+
     private String firstName = "";
+
     private String middleName = "";
     private String lastName;
     private int credits = 0;
@@ -57,6 +67,24 @@ public class Student {
             throw new StudentNameFormaException(message);
         }
         setName(nameParts);
+    }
+
+    public void set(Flag... flags) {
+        for (Flag flag : flags)
+            settings |= flag.mask;
+    }
+
+    public void unset(Flag... flags) {
+        for (Flag flag : flags)
+            settings &= ~flag.mask;
+    }
+
+    public boolean isOn(Flag flag) {
+        return (settings & flag.mask) == flag.mask;
+    }
+
+    public boolean isOff(Flag flag) {
+        return !isOn(flag);
     }
 
     public void addCharge(int charge) {
