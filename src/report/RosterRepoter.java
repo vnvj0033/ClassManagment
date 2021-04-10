@@ -3,6 +3,8 @@ package report;
 import studentInfo.Session;
 import studentInfo.Student;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -24,6 +26,16 @@ public class RosterRepoter {
         writeHeader();
         writeBody();
         writeFooter();
+    }
+
+    void writeReport(String filename) throws IOException{
+        Writer bufferWriter = new BufferedWriter(new FileWriter(filename));
+        try {
+            writeReport(bufferWriter);
+        }finally {
+            bufferWriter.close();
+        }
+
     }
 
     private void writeHeader() throws IOException {
