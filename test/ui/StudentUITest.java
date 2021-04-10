@@ -1,5 +1,6 @@
 package ui;
 
+import org.junit.jupiter.api.Test;
 import studentInfo.Student;
 
 import java.io.*;
@@ -10,6 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class StudentUITest {
     static private final String name = "Leo Xercrs Schmoo";
 
+    public static void main(String[] args) throws IOException {
+        new StudentUI().run();
+    }
+
+    @Test
     public void testCreateStudent() throws IOException {
         StringBuffer expectedOutput = new StringBuffer();
         StringBuffer input = new StringBuffer();
@@ -17,16 +23,22 @@ public class StudentUITest {
         byte[] buffer = input.toString().getBytes();
 
         InputStream inputStream = new ByteArrayInputStream(buffer);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
         OutputStream outputStream = new ByteArrayOutputStream();
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
 
-        StudentUI ui = new StudentUI(reader, writer);
-        ui.run();
+        InputStream consoleIn = System.in;
+        PrintStream consoleOut = System.out;
+        System.setIn(inputStream);
+        System.setOut(new PrintStream(outputStream));
+        try {
+            StudentUI ui = new StudentUI();
+            ui.run();
 
-        assertEquals(expectedOutput.toString(), outputStream.toString());
-        assertStudent(ui.getAddedStudents());
+            assertEquals(expectedOutput.toString(), outputStream.toString());
+            assertStudent(ui.getAddedStudents());
+        }finally {
+            System.setIn(consoleIn);
+            System.setOut(consoleOut);
+        }
     }
 
     private void assertStudent(List<Student> students) {
@@ -49,3 +61,4 @@ public class StudentUITest {
         return String.format("%s%n",input);
     }
 }
+
