@@ -6,7 +6,7 @@ import studentInfo.CourseSession;
 import studentInfo.Session;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static report.RosterRepoter.NEWLINE;
+import static report.RepoetConstant.NEWLINE;
 
 import java.util.Date;
 

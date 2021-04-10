@@ -3,44 +3,42 @@ package report;
 import studentInfo.Session;
 import studentInfo.Student;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 
 public class RosterRepoter {
-    static final String NEWLINE = System.lineSeparator();
-    static final String ROSTER_REPORT_HEADER = "Student" + NEWLINE + "-" + NEWLINE;
-    static final String ROSTER_REPORT_FOOTER = NEWLINE + "# student = ";
+
+    static final String ROSTER_REPORT_HEADER = "Student%n-%n";
+    static final String ROSTER_REPORT_FOOTER = "%n# student = %d%n";
 
     private Session session;
+    private Writer writer;
 
     public RosterRepoter(Session session) {
         this.session = session;
     }
 
-    public String getReport() {
-        StringBuilder buffer = new StringBuilder();
-
-        writeHeader(buffer);
-        writeBody(buffer);
-        writeFooter(buffer);
-
-        return buffer.toString();
+    void writeReport(Writer writer) throws IOException {
+        this.writer = writer;
+        writeHeader();
+        writeBody();
+        writeFooter();
     }
 
-    private void writeHeader(StringBuilder buffer) {
-        buffer.append(ROSTER_REPORT_HEADER);
+    private void writeHeader() throws IOException {
+        writer.write(String.format(ROSTER_REPORT_HEADER));
     }
 
-    private void writeBody(StringBuilder buffer) {
+    private void writeBody() throws IOException {
         ArrayList<Student> students = session.getAllStudents();
 
-        for(Student student: students) {
-            buffer.append(student.getName() + NEWLINE);
+        for (Student student : students) {
+            writer.write(String.format(student.getName() + "%n"));
         }
     }
 
-    private void writeFooter(StringBuilder buffer) {
-        buffer.append(ROSTER_REPORT_FOOTER + session.getAllStudents().size() +
-                NEWLINE);
+    private void writeFooter() throws IOException {
+        writer.write(String.format(ROSTER_REPORT_FOOTER, session.getAllStudents().size()));
     }
-
 }

@@ -5,7 +5,7 @@ import studentInfo.Session;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static report.RosterRepoter.NEWLINE;
+import static report.RepoetConstant.NEWLINE;
 
 
 public class CourseReport {

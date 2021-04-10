@@ -1,37 +1,33 @@
 package report;
 
 import org.junit.jupiter.api.Test;
-import studentInfo.Course;
-import studentInfo.CourseSession;
-import studentInfo.Session;
-import studentInfo.Student;
+import studentInfo.*;
 
-import java.util.Date;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RosterRepoterTest {
 
     @Test
-    void testRosterReport() {
-        Student student = new Student("준성");
-        Student student2 = new Student("상민");
+    void testRosterReport() throws IOException {
+        Session session = CourseSession.create(new Course("ENGL", "101"), DateUtil.createDate(2003, 1, 6));
 
-        Session session = CourseSession.create(new Course("정보통신", "101"), new Date());
-        session.enroll(student);
-        session.enroll(student2);
+        session.enroll(new Student("A"));
+        session.enroll(new Student("B"));
 
-        RosterRepoter repoter = new RosterRepoter(session);
+        Writer writer = new StringWriter();
+        new RosterRepoter(session).writeReport(writer);
+        String rosterReport = writer.toString();
 
-        String report = RosterRepoter.ROSTER_REPORT_HEADER +
-                student.getName() +
-                RosterRepoter.NEWLINE +
-                student2.getName() +
-                RosterRepoter.NEWLINE +
-                RosterRepoter.ROSTER_REPORT_FOOTER +
-                "2" +
-                RosterRepoter.NEWLINE;
-
-        assertEquals(repoter.getReport(), report);
+        assertEquals(
+                String.format(
+                        RosterRepoter.ROSTER_REPORT_HEADER +
+                        "A%n" +
+                        "B%n" +
+                        RosterRepoter.ROSTER_REPORT_FOOTER, 2
+                ), rosterReport);
     }
 }
