@@ -1,8 +1,7 @@
 package db;
 
 import javax.xml.crypto.Data;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 
 public class DataFile {
     public static final String DATA_EXT = ".db";
@@ -23,7 +22,7 @@ public class DataFile {
         return new DataFile(filebase, false);
     }
 
-    private DataFile(String failbase, boolean deleteFiles) {
+    private DataFile(String failbase, boolean deleteFiles) throws IOException {
         dataFilename = failbase + DATA_EXT;
         keyFilename = failbase + KEY_EXT;
 
@@ -68,5 +67,33 @@ public class DataFile {
 
     private Object read(int length) throws IOException {
         byte[] bytes = new byte[length];
+        db.readFully(bytes);
+        return readObject(bytes);
+    }
+
+    private Object readObject(byte[] bytes) throws IOException {
+        ObjectInputStream input = new ObjectInputStream(new ByteArrayInputStream(bytes));
+        try{
+            try{
+                return input.readObject();
+            }catch (ClassNotFoundException unlikely) {
+                return null;
+            }
+        }finally {
+            input.close();
+        }
+    }
+
+    private void openFiles() throws IOException {
+        keys = new KeyFile(keyFilename);
+        db = new RandomAccessFile(new File(dataFilename), "rw");
+    }
+
+    private byte[] getBytes(Object object) throws IOException{
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        ObjectOutputStream outputStream = new ObjectOutputStream(byteStream);
+        outputStream.writeObject(object);
+        outputStream.flush();
+        return byteStream.toByteArray();
     }
 }
