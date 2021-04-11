@@ -17,11 +17,12 @@ public class KeyFileTest {
     private KeyFile keyFile;
 
     @BeforeEach
-    protected void setUp() {
+    protected void setUp() throws IOException {
         TestUtil.delete(FILENAME);
         keyFile = new KeyFile(FILENAME);
     }
 
+    @Test
     protected void tearDown() throws IOException {
         assertEquals(0, keyFile.size());
     }
@@ -37,14 +38,14 @@ public class KeyFileTest {
     }
 
     @Test
-    public void testReopen() {
+    public void testReopen() throws IOException {
         keyFile.add(KEY, POSITION, LENGTH);
         keyFile.close();
 
         keyFile = new KeyFile(FILENAME);
         assertEquals(1, keyFile.size());
         assertEquals(POSITION, keyFile.getPosition(KEY));
-        assertEquals(LENGTH, keyFile.getLength());
+        assertEquals(LENGTH, keyFile.getLength(KEY));
     }
 
 }
