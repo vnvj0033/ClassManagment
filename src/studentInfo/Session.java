@@ -103,4 +103,8 @@ abstract public class Session implements Comparable<Session>, Iterable<Student> 
     private void log(Exception e) {
         e.printStackTrace();
     }
+
+    public int getNumberOfCredits() {
+        return numberOfCredits;
+    }
 }
