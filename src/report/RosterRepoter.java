@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RosterRepoter {
 
@@ -43,7 +44,7 @@ public class RosterRepoter {
     }
 
     private void writeBody() throws IOException {
-        ArrayList<Student> students = session.getAllStudents();
+        List<Student> students = session.getAllStudents();
 
         for (Student student : students) {
             writer.write(String.format(student.getName() + "%n"));

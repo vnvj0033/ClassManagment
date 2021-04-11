@@ -6,6 +6,10 @@ import java.util.logging.Logger;
 
 public class Student {
 
+    public static Student findByLastName(String lastName) {
+        return new Student(lastName);
+    }
+
     public enum Flag {
         ON_CAMPUS(1),
         TAX_EXEMPT(2),
