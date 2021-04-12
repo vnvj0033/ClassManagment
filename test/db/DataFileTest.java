@@ -28,7 +28,7 @@ public class DataFileTest {
     }
 
     @Test
-    void testDown() {
+    void testDown() throws IOException {
         db.close();
         db.deleteFiles();
     }
@@ -46,7 +46,7 @@ public class DataFileTest {
     }
 
     @Test
-    void testPersistence() {
+    void testPersistence() throws IOException {
         db.add(ID1, testData1);
         db.add(ID2, testData2);
         db.close();

@@ -16,7 +16,7 @@ public class StudentDirectoryTest {
     }
 
     @Test
-    void testDown() {
+    void testDown() throws IOException {
         dir.close();
         dir.remove();
     }

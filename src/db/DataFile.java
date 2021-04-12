@@ -1,5 +1,7 @@
 package db;
 
+import util.IOUtil;
+
 import java.io.*;
 
 public class DataFile {
@@ -61,7 +63,7 @@ public class DataFile {
     }
 
     public void deleteFiles() {
-        IOUtill.delete(dataFilename, keyFilename);
+        IOUtil.delete(dataFilename, keyFilename);
     }
 
     private Object read(int length) throws IOException {

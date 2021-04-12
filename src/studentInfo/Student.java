@@ -1,10 +1,11 @@
 package studentInfo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class Student {
+public class Student implements Serializable {
 
     public static Student findByLastName(String lastName) {
         return new Student(lastName);
