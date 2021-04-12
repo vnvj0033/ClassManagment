@@ -5,10 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SwitchTest {
 
+    enum Score {fieldGoal, touchdow, extraPoint, twoPointConversion, safety}
+
     @Test
     void testSwitchResualt() {
 
-        enum Score {fieldGoal, touchdow, extraPoint, twoPointConversion, safety}
 
         int totalPoints = 0;
 
