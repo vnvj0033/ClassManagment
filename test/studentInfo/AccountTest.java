@@ -32,7 +32,9 @@ public class AccountTest {
 
     @Test
     void testTransferFromBank() {
-        account.setAch(new com.jimbob.ach.JimBobAch());
+//        account.setAch(new com.jimbob.ach.JimBobAch());
+        account.setAch(new MockAch());
+
         final BigDecimal amount = new BigDecimal("50.00");
         account.transferFormBank(amount);
 
