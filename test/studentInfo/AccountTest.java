@@ -35,8 +35,22 @@ public class AccountTest {
 
     @Test
     void testTransferFromBank() {
-        Ach mockAch = new Ach() {
-            @Override
+        account.setAch(createMockAch(AchStatus.SUCCESS));
+        final BigDecimal amount = new BigDecimal("50.00");
+        account.transferFromBank(amount);
+        assertEquals(amount, account.getBalance());
+    }
+
+    @Test
+    void testFailedTransferFromBank() {
+        account.setAch(createMockAch(AchStatus.FAILURE));
+        final BigDecimal amount = new BigDecimal("50.00");
+        account.transferFromBank(amount);
+        assertEquals(new BigDecimal("0.00"), account.getBalance());
+    }
+
+    private Ach createMockAch(final AchStatus status){
+        return new MockAch(){
             public AchResponse issueDebit(AchCredentials credentials, AchTransactionData data) {
                 assertTrue(data.account.equals(AccountTest.ACCOUNT_NUMBER));
                 assertTrue(data.aba.equals(AccountTest.ABA));
@@ -44,41 +58,9 @@ public class AccountTest {
                 AchResponse response = new AchResponse();
                 response.timeStamp = new Date();
                 response.traceCode = "1";
-                response.status = AchStatus.SUCCESS;
+                response.status = status;
                 return response;
             }
-
-            @Override
-            public AchResponse markTransactionAsNSF(AchCredentials credentials, AchTransactionData data, String traceCode) {
-                return null;
-            }
-
-            @Override
-            public AchResponse refundTransaction(AchCredentials credentials, AchTransactionData data, String traceCode) {
-                return null;
-            }
-
-            @Override
-            public AchResponse issueCredit(AchCredentials credentials, AchTransactionData data) {
-                return null;
-            }
-
-            @Override
-            public AchResponse voidSameDayTransaction(AchCredentials credentials, AchTransactionData data, String traceCode) {
-                return null;
-            }
-
-            @Override
-            public AchResponse queryTransactionStatus(AchCredentials credentials, AchTransactionData data, String traceCode) {
-                return null;
-            }
         };
-
-        account.setAch(mockAch);
-
-        final BigDecimal amount = new BigDecimal("50.00");
-        account.transferFormBank(amount);
-
-        assertEquals(amount, account.getBalance());
     }
 }

@@ -1,9 +1,6 @@
 package studentInfo;
 
-import com.jimbob.ach.Ach;
-import com.jimbob.ach.AchCredentials;
-import com.jimbob.ach.AchResponse;
-import com.jimbob.ach.AchTransactionData;
+import com.jimbob.ach.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -58,15 +55,10 @@ public class Account {
         this.bankAccountType = bankAccountType;
     }
 
-    public void transferFormBank(BigDecimal amount) {
-        AchCredentials credentials = createCredentials();
-
-        AchTransactionData data = createData(amount);
-
-        Ach ach = getAch();
-        AchResponse achResponse = ach.issueDebit(credentials, data);
-
-        credit(amount);
+    public void transferFromBank(BigDecimal amount) {
+        AchResponse achResponse = getAch().issueDebit(createCredentials(), createData(amount));
+        if (achResponse.status == AchStatus.SUCCESS)
+            credit(amount);
     }
 
     private AchCredentials createCredentials() {

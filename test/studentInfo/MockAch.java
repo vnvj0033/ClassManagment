@@ -11,14 +11,7 @@ public class MockAch implements Ach {
 
     @Override
     public AchResponse issueDebit(AchCredentials credentials, AchTransactionData data) {
-        assertTrue(data.account.equals(AccountTest.ACCOUNT_NUMBER));
-        assertTrue(data.aba.equals(AccountTest.ABA));
-
-        AchResponse response = new AchResponse();
-        response.timeStamp = new Date();
-        response.traceCode = "1";
-        response.status = AchStatus.SUCCESS;
-        return response;
+        return null;
     }
 
     @Override
