@@ -81,6 +81,7 @@ public class Account {
         AchTransactionData data = new AchTransactionData();
         data.description = "transfer from bank";
         data.amount = amount;
+        data.aba = bankAba;
         data.account = bankAccountNumber;
         data.accountType = bankAccountType.toString();
         return data;
@@ -90,7 +91,7 @@ public class Account {
         return ach;
     }
 
-    private void setAch(Ach ach) {
+    void setAch(Ach ach) {
         this.ach = ach;
     }
 }
