@@ -1,6 +1,7 @@
 package studentInfo;
 
 import security.Permission;
+import security.SecureProxy;
 
 import java.lang.reflect.Proxy;
 
