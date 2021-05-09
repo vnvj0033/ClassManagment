@@ -36,7 +36,7 @@ public class ServerTest {
     }
 
     @Test
-    void testSearch() {
+    void testSearch() throws IOException {
         long start = System.currentTimeMillis();
         for (String url: URLS)
             server.add(new Search(url, "xxx"));
