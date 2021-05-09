@@ -3,9 +3,11 @@ package search;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Server extends Thread{
-    private List<Search> queue = Collections.synchronizedList(new LinkedList<>());
+    private BlockingQueue<Search> queue = new LinkedBlockingQueue<>();
     private ResultListener listener;
 
     public Server(ResultListener listener) {
@@ -15,14 +17,14 @@ public class Server extends Thread{
 
     public void run() {
         while (true) {
-            if (!queue.isEmpty())
-                execute(queue.remove(0));
-            Thread.yield();
+            try {
+                execute(queue.take());
+            }catch (InterruptedException e) {}
         }
     }
 
-    public void add(Search search) {
-        queue.add(search);
+    public void add(Search search) throws Exception {
+        queue.put(search);
     }
 
     private void execute(Search search){
