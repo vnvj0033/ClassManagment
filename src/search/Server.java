@@ -19,7 +19,9 @@ public class Server extends Thread{
         while (true) {
             try {
                 execute(queue.take());
-            }catch (InterruptedException e) {}
+            }catch (InterruptedException e) {
+                break;
+            }
         }
     }
 
@@ -29,5 +31,9 @@ public class Server extends Thread{
 
     private void execute(Search search){
         listener.executed(search);
+    }
+
+    public void shutDown() throws Exception{
+        this.interrupt();
     }
 }

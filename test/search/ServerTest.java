@@ -8,6 +8,7 @@ import util.TestUtil;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ServerTest {
@@ -31,12 +32,16 @@ public class ServerTest {
     }
 
     @AfterEach
-    protected void tearDown() {
+    protected void tearDown() throws Exception{
+        assertTrue(server.isAlive());
+        server.shutDown();
+        server.join(3000);
+        assertFalse(server.isAlive());
         TestUtil.delete(SearchTest.FILE);
     }
 
     @Test
-    void testSearch() throws IOException {
+    void testSearch() throws Exception {
         long start = System.currentTimeMillis();
         for (String url: URLS)
             server.add(new Search(url, "xxx"));
