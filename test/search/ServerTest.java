@@ -55,7 +55,7 @@ public class ServerTest {
             }catch (InterruptedException e) {}
             if (System.currentTimeMillis() - start > TIMEOUT)
                 return false;
-            return true;
         }
+        return true;
     }
 }
