@@ -31,9 +31,11 @@ public class Account implements Accountable{
 
     }
     public void withdraw(BigDecimal amount) {
-        if (amount.compareTo(balance) > 0)
-            return;
-        balance = balance.subtract(amount);
+        synchronized (this){
+            if (amount.compareTo(balance) > 0)
+                return;
+            balance = balance.subtract(amount);
+        }
     }
 
     public void credit(BigDecimal amount) {

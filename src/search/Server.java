@@ -1,10 +1,11 @@
 package search;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Server extends Thread{
-    private List<Search> queue = new LinkedList<>();
+    private List<Search> queue = Collections.synchronizedList(new LinkedList<>());
     private ResultListener listener;
 
     public Server(ResultListener listener) {
