@@ -15,11 +15,12 @@ public class Clock implements Runnable {
         run = false;
     }
 
-    public void run() {
+    public void run(){
+        Thread.currentThread().setPriority(Thread.NORM_PRIORITY - 1);
         long lastTime = System.currentTimeMillis();
         while (run) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(10);
             } catch (InterruptedException e) { }
             long now = System.currentTimeMillis();
             if ((now / 1000) - (lastTime / 1000) >= 1) {
