@@ -1,37 +1,60 @@
 package clock;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ClockTest{
     private Clock clock;
-    private Object monitor = new Object();
+    private Lock lock;
+    private Condition receivedEnoughTics;
+
+    @BeforeEach
+    protected void setUp() {
+        lock = new ReentrantLock();
+        receivedEnoughTics = lock.newCondition();
+    }
 
     @Test
-    public void testClock() throws Exception {
-        final int seconds = 5;
+    public void testClock() throws Exception{
+        final int seconds = 2;
         final List<Date> tics = new ArrayList<>();
-        ClockListener listener = new ClockListener() {
-            private int count = 0;
-            public void update(Date date){
-                tics.add(date);
-                if (++count == seconds)
-                    synchronized (monitor) {
-                    monitor.notify();
-                    }
-            }
-        };
+        ClockListener listener = createClockListener(tics,seconds);
+
         clock = new Clock(listener);
-        synchronized (monitor){
-            monitor.wait();
+        lock.lock();
+        try {
+            receivedEnoughTics.await();
+        } finally {
+            lock.unlock();
         }
         clock.stop();
         verify(tics, seconds);
     }
 
+    private ClockListener createClockListener(final List<Date> tics,final int seconds) {
+        return new ClockListener() {
+            private int count = 0;
+            @Override
+            public void update(Date date) {
+                tics.add(date);
+                if (++count == seconds) {
+                    lock.lock();
+                    try {
+                        receivedEnoughTics.signalAll();
+                    } finally {
+                        lock.unlock();
+                    }
+                }
+            }
+        };
+    }
 
     private void verify(List<Date> tics, int seconds) {
         assertEquals(seconds, tics.size());
