@@ -49,6 +49,20 @@ public class AccountTest {
         assertEquals(new BigDecimal("0.00"), account.getBalance());
     }
 
+    @Test
+    void testWithdraw() throws Exception {
+        account.credit(new BigDecimal("100.00"));
+        account.withdraw(new BigDecimal("40.00"));
+        assertEquals(new BigDecimal("60.00"), account.getBalance());
+    }
+
+    @Test
+    void testWithdrawInsufficientFunds() {
+        account.credit(new BigDecimal("100.00"));
+        account.withdraw(new BigDecimal("140.00"));
+        assertEquals(new BigDecimal("100.00"), account.getBalance());
+    }
+
     private Ach createMockAch(final AchStatus status){
         return new MockAch(){
             public AchResponse issueDebit(AchCredentials credentials, AchTransactionData data) {
