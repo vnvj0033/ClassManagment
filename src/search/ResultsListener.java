@@ -1,5 +1,5 @@
 package search;
 
-public interface ResultListener {
+public interface ResultsListener {
     public void executed(Search search);
 }

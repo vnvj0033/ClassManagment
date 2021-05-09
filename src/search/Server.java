@@ -9,7 +9,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class Server extends Thread {
     private BlockingQueue<Search> queue = new LinkedBlockingQueue<>();
-    private ResultListener listener;
+    private ResultsListener listener;
     static final String START_MSG = "started";
     static final String END_MSG = "finished";
 
@@ -21,7 +21,7 @@ public class Server extends Thread {
 
     private List<String> completeLog = Collections.synchronizedList(new ArrayList<String>());
 
-    public Server(ResultListener listener) {
+    public Server(ResultsListener listener) {
         this.listener = listener;
         start();
     }

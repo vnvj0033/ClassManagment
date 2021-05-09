@@ -23,7 +23,7 @@ public class ServerTest {
         TestUtil.delete(SearchTest.FILE);
         LineWriter.write(SearchTest.FILE, SearchTest.TEST_HTML);
 
-        ResultListener listener = new ResultListener() {
+        ResultsListener listener = new ResultsListener() {
             public void executed(Search search) {
                 numberOfResults++;
             }
