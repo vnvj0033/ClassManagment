@@ -8,9 +8,7 @@ import util.TestUtil;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.AssertTrue.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static sun.net.www.protocol.http.AuthCacheValue.Type.Server;
 
 public class ServerTest {
 
@@ -24,7 +22,7 @@ public class ServerTest {
         TestUtil.delete(SearchTest.FILE);
         LineWriter.write(SearchTest.FILE, SearchTest.TEST_HTML);
 
-        ResultListener listener = new ResualtListener() {
+        ResultListener listener = new ResultListener() {
             public void executed(Search search) {
                 numberOfResults++;
             }
