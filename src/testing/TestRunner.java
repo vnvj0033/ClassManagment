@@ -1,5 +1,7 @@
 package testing;
 
+import org.junit.jupiter.api.Test;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashSet;
@@ -35,7 +37,8 @@ public class TestRunner {
     private void loadTestMethods() {
         testMethods = new HashSet<>();
         for (Method method : testClass.getDeclaredMethods())
-            testMethods.add(method);
+            if (method.isAnnotationPresent(Test.class))
+                testMethods.add(method);
     }
 
     public void run() {
