@@ -10,6 +10,12 @@ public class TestRunnerTest {
     private static final String methodNameB = "testB";
 
     @TestMethod
+    public void ignoreMethod() {
+        runTests(IgnoreMethodTest.class);
+        verifyTests(methodNameA, methodNameB);
+    }
+
+    @TestMethod
     public void singleMethodTest() {
         runTests(SingleMethodTest.class);
         verifyTests(methodNameA);
@@ -53,8 +59,6 @@ public class TestRunnerTest {
             methodNames.add(method.getName());
         return methodNames;
     }
-
-
 }
 
 class SingleMethodTest {
@@ -72,4 +76,12 @@ class MultipleMethodTest {
     @TestMethod
     public void testB() {
     }
+}
+
+class IgnoreMethodTest {
+    @TestMethod public void testA() {}
+    @TestMethod public void testB() {}
+
+    @Ignore
+    @TestMethod public void testC() {}
 }
