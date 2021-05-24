@@ -1,7 +1,5 @@
 package testing;
 
-import org.junit.jupiter.api.Test;
-
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,13 +9,13 @@ public class TestRunnerTest {
     private static final String methodNameA = "testA";
     private static final String methodNameB = "testB";
 
-    @Test
+    @TestMethod
     public void singleMethodTest() {
         runTests(SingleMethodTest.class);
         verifyTests(methodNameA);
     }
 
-    @Test
+    @TestMethod
     public void multipleMethodTest() {
         runTests(MultipleMethodTest.class);
         verifyTests(methodNameA, methodNameB);
@@ -60,18 +58,18 @@ public class TestRunnerTest {
 }
 
 class SingleMethodTest {
-    @Test
+    @TestMethod
     public void testA() {
     }
 }
 
 class MultipleMethodTest {
-    @Test
+    @TestMethod
     public void testA() {
 
     }
 
-    @Test
+    @TestMethod
     public void testB() {
     }
 }

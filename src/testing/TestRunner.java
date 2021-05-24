@@ -37,7 +37,7 @@ public class TestRunner {
     private void loadTestMethods() {
         testMethods = new HashSet<>();
         for (Method method : testClass.getDeclaredMethods())
-            if (method.isAnnotationPresent(Test.class))
+            if (method.isAnnotationPresent(TestMethod.class))
                 testMethods.add(method);
     }
 
