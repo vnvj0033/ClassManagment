@@ -1,10 +1,11 @@
 package testing;
 
 import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class TestRunnerTest {
+    public static final String IGNORE_REASON1 = "because";
+
     private TestRunner runner;
     private static final String methodNameA = "testA";
     private static final String methodNameB = "testB";
@@ -13,6 +14,7 @@ public class TestRunnerTest {
     public void ignoreMethod() {
         runTests(IgnoreMethodTest.class);
         verifyTests(methodNameA, methodNameB);
+        assertIgnoreReasons();
     }
 
     @TestMethod
@@ -25,6 +27,20 @@ public class TestRunnerTest {
     public void multipleMethodTest() {
         runTests(MultipleMethodTest.class);
         verifyTests(methodNameA, methodNameB);
+    }
+
+    private void assertIgnoreReasons() {
+        Map<Method, Ignore> ignoreMethod = runner.getIgnoredMethods();
+        Map.Entry<Method, Ignore> entry = getSoleEntry(ignoreMethod);
+        assert "testC".equals(entry.getKey().getName()) : "unexpected ignore method: " + entry.getKey();
+        Ignore ignore = entry.getValue();
+        assert IGNORE_REASON1.equals(ignore.value());
+    }
+
+    private <K, V> Map.Entry<K, V> getSoleEntry(Map<K, V> map) {
+        assert 1 == map.size() : "expected one entry";
+        Iterator<Map.Entry<K, V>> it = map.entrySet().iterator();
+        return it.next();
     }
 
     private void runTests(Class testClass) {
@@ -82,6 +98,6 @@ class IgnoreMethodTest {
     @TestMethod public void testA() {}
     @TestMethod public void testB() {}
 
-    @Ignore
+    @Ignore(TestRunnerTest.IGNORE_REASON1)
     @TestMethod public void testC() {}
 }

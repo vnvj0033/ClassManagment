@@ -1,16 +1,17 @@
 package testing;
 
-import org.junit.jupiter.api.Test;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class TestRunner {
     private Class testClass;
     private int failed = 0;
     private Set<Method> testMethods = null;
+    private Map<Method, Ignore> ignoredMethods = null;
 
     public static void main(String[] args) {
         TestRunner runner = new TestRunner(args[0]);
@@ -20,7 +21,7 @@ public class TestRunner {
             System.exit(1);
     }
 
-    public TestRunner(Class testClass){
+    public TestRunner(Class testClass) {
         this.testClass = testClass;
     }
 
@@ -34,16 +35,21 @@ public class TestRunner {
         return testMethods;
     }
 
-    private void loadTestMethods() {
-        testMethods = new HashSet<>();
-        for (Method method : testClass.getDeclaredMethods())
-            if (method.isAnnotationPresent(TestMethod.class) && !method.isAnnotationPresent(Ignore.class))
-                testMethods.add(method);
+    public void run() {
+        for (Method method : getTestMethods())
+            run(method);
     }
 
-    public void run() {
-        for (Method method: getTestMethods())
-            run(method);
+    public Map<Method, Ignore> getIgnoredMethods() {
+        return ignoredMethods;
+    }
+
+    public int passed() {
+        return testMethods.size() - failed;
+    }
+
+    public int failed() {
+        return failed;
     }
 
     private void run(Method method) {
@@ -62,11 +68,17 @@ public class TestRunner {
             failed++;
         }
     }
-    public int passed() {
-        return testMethods.size() - failed;
-    }
 
-    public int failed() {
-        return failed;
+    private void loadTestMethods() {
+        testMethods = new HashSet<>();
+        ignoredMethods = new HashMap<>();
+        for (Method method : testClass.getDeclaredMethods()) {
+            if (method.isAnnotationPresent(TestMethod.class))
+                if (method.isAnnotationPresent(Ignore.class)) {
+                    Ignore ignore = method.getAnnotation(Ignore.class);
+                    ignoredMethods.put(method, ignore);
+                }else
+                    testMethods.add(method);
+        }
     }
 }
