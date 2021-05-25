@@ -1,6 +1,7 @@
 package testing;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Map;
 
 public class TestRunnerUI {
@@ -37,7 +38,7 @@ public class TestRunnerUI {
         System.out.println("\nIgnored Methods");
         for (Map.Entry<Method, Ignore> entry : runner.getIgnoredMethods().entrySet()){
             Ignore ignore = entry.getValue();
-            System.out.println(entry.getKey() + ": " + ignore.value());
+            System.out.printf("%s: %s (by %s)",entry.getKey(), Arrays.toString(ignore.reasons()), ignore.initials());
         }
     }
 }

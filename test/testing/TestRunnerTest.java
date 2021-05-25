@@ -7,6 +7,8 @@ public class TestRunnerTest {
     public static final String IGNORE_REASON1 = "because";
     public static final String IGNORE_REASON2 = "why not";
 
+    public static final String IGNORE_INITIALS = "jj1";
+
     private TestRunner runner;
     private static final String methodNameA = "testA";
     private static final String methodNameB = "testB";
@@ -35,10 +37,11 @@ public class TestRunnerTest {
         Map.Entry<Method, Ignore> entry = getSoleEntry(ignoreMethod);
         assert "testC".equals(entry.getKey().getName()) : "unexpected ignore method: " + entry.getKey();
         Ignore ignore = entry.getValue();
-        String[] ignoreReasons = ignore.value();
+        String[] ignoreReasons = ignore.reasons();
         assert 2 == ignoreReasons.length;
         assert IGNORE_REASON1.equals(ignoreReasons[0]);
         assert IGNORE_REASON2.equals(ignoreReasons[1]);
+        assert IGNORE_REASON2.equals(ignore.initials());
     }
 
     private <K, V> Map.Entry<K, V> getSoleEntry(Map<K, V> map) {
@@ -83,25 +86,21 @@ public class TestRunnerTest {
 
 class SingleMethodTest {
     @TestMethod
-    public void testA() {
-    }
+    public void testA() { }
 }
 
 class MultipleMethodTest {
     @TestMethod
-    public void testA() {
-
-    }
+    public void testA() { }
 
     @TestMethod
-    public void testB() {
-    }
+    public void testB() { }
 }
 
 class IgnoreMethodTest {
     @TestMethod public void testA() {}
     @TestMethod public void testB() {}
 
-    @Ignore({TestRunnerTest.IGNORE_REASON1, TestRunnerTest.IGNORE_REASON2})
+    @Ignore(reasons = {TestRunnerTest.IGNORE_REASON1, TestRunnerTest.IGNORE_REASON2}, initials = TestRunnerTest.IGNORE_INITIALS)
     @TestMethod public void testC() {}
 }
