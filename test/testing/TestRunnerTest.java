@@ -5,6 +5,7 @@ import java.util.*;
 
 public class TestRunnerTest {
     public static final String IGNORE_REASON1 = "because";
+    public static final String IGNORE_REASON2 = "why not";
 
     private TestRunner runner;
     private static final String methodNameA = "testA";
@@ -34,7 +35,10 @@ public class TestRunnerTest {
         Map.Entry<Method, Ignore> entry = getSoleEntry(ignoreMethod);
         assert "testC".equals(entry.getKey().getName()) : "unexpected ignore method: " + entry.getKey();
         Ignore ignore = entry.getValue();
-        assert IGNORE_REASON1.equals(ignore.value());
+        String[] ignoreReasons = ignore.value();
+        assert 2 == ignoreReasons.length;
+        assert IGNORE_REASON1.equals(ignoreReasons[0]);
+        assert IGNORE_REASON2.equals(ignoreReasons[1]);
     }
 
     private <K, V> Map.Entry<K, V> getSoleEntry(Map<K, V> map) {
@@ -98,6 +102,6 @@ class IgnoreMethodTest {
     @TestMethod public void testA() {}
     @TestMethod public void testB() {}
 
-    @Ignore(TestRunnerTest.IGNORE_REASON1)
+    @Ignore({TestRunnerTest.IGNORE_REASON1, TestRunnerTest.IGNORE_REASON2})
     @TestMethod public void testC() {}
 }
