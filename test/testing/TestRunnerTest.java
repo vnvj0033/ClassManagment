@@ -14,6 +14,18 @@ public class TestRunnerTest {
     private static final String methodNameB = "testB";
 
     @TestMethod
+    public void dateTest() {
+        runTests(IgnoreMethodTest.class);
+        Map<Method, Ignore> ignoreMethods = runner.getIgnoredMethods();
+        Map.Entry<Method, Ignore> entry = getSoleEntry(ignoreMethods);
+        Ignore ignore = entry.getValue();
+        testing.Date date = ignore.date();
+        assert 1 == date.month();
+        assert 2 == date.day();
+        assert 2005 == date.year();
+    }
+
+    @TestMethod
     public void ignoreMethod() {
         runTests(IgnoreMethodTest.class);
         verifyTests(methodNameA, methodNameB);
@@ -101,6 +113,8 @@ class IgnoreMethodTest {
     @TestMethod public void testA() {}
     @TestMethod public void testB() {}
 
-    @Ignore(reasons = {TestRunnerTest.IGNORE_REASON1, TestRunnerTest.IGNORE_REASON2}, initials = TestRunnerTest.IGNORE_INITIALS)
+    @Ignore(reasons = {TestRunnerTest.IGNORE_REASON1, TestRunnerTest.IGNORE_REASON2},
+            initials = TestRunnerTest.IGNORE_INITIALS,
+    date = @Date(month = 1, day = 2, year = 2005))
     @TestMethod public void testC() {}
 }
