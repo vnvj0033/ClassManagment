@@ -14,6 +14,13 @@ public class TestRunnerTest {
     private static final String methodNameB = "testB";
 
     @TestMethod
+    public void packageAnnotations() {
+        Package pkg = this.getClass().getPackage();
+        TestPackage testPackage = pkg.getAnnotation(TestPackage.class);
+        assert testPackage.isPerformance();
+    }
+
+    @TestMethod
     public void dateTest() {
         runTests(IgnoreMethodTest.class);
         Map<Method, Ignore> ignoreMethods = runner.getIgnoredMethods();
