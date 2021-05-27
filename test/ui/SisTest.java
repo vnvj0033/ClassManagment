@@ -3,6 +3,7 @@ package ui;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import studentInfo.Course;
 
 import javax.swing.*;
 
@@ -31,6 +32,20 @@ public class SisTest {
     public void testShow() {
         sis.show();
         assertTrue(frame.isVisible());
+    }
+
+    @Test
+    public void testAddCourse() {
+        CoursesPanel panel = (CoursesPanel) Util.getComponent(frame, CoursesPanel.NAME);
+        panel.setText(CoursesPanel.DEPARTMENT_FIELD_NAME, "MATH");
+        panel.setText(CoursesPanel.NUMBER_FIELD_NAME, "300");
+
+        JButton button = panel.getButton(CoursesPanel.ADD_BUTTON_NAME);
+        button.doClick();
+
+        Course course = panel.getCourse(0);
+        assertEquals("MATH", course.getDepartment());
+        assertEquals("300", course.getNumber());
     }
 
     @AfterEach

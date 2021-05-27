@@ -93,6 +93,15 @@ public class CoursesPanel extends JPanel {
         addButton.addActionListener(listener);
     }
 
+    void setText(String textFieldName, String text) {
+        getField(textFieldName).setText(text);
+    }
+
+    Course getCourse(int index) {
+        Course adapter = (CourseDisplayAdapter) courseModel.getElementAt(index);
+        return adapter;
+    }
+
     JLabel getLabel(String name) {
         return (JLabel) Util.getComponent(this, name);
     }
@@ -107,5 +116,9 @@ public class CoursesPanel extends JPanel {
 
     JTextField getField(String name) {
         return (JTextField) Util.getComponent(this, name);
+    }
+
+    String getText(String textFieldName) {
+        return getField(textFieldName).getText();
     }
 }
