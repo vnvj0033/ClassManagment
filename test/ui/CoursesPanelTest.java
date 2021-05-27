@@ -2,6 +2,7 @@ package ui;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import studentInfo.Course;
 
 import javax.swing.*;
 
@@ -45,6 +46,15 @@ public class CoursesPanelTest {
 
         button.doClick();
         assertTrue(wasCliicked);
+    }
+
+    @Test
+    public void testAddCourse() {
+        Course course = new Course("ENGL", "101");
+        panel.addCourse(course);
+        JList list = panel.getList(COURSES_LIST_NAME);
+        ListModel model = list.getModel();
+        assertEquals("ENGL-101", model.getElementAt(0).toString());
     }
 
     private void assertLabelText(String name, String text) {
