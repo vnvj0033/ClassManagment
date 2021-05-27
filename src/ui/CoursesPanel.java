@@ -1,6 +1,7 @@
 package ui;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public class CoursesPanel extends JPanel {
     public static final String NAME = "coursesPanel";
@@ -15,6 +16,8 @@ public class CoursesPanel extends JPanel {
     public static final String NUMBER_LABEL_NAME = "numberLabel";
     public static final String DEPARTMENT_LABEL_TEXT = "Department";
     public static final String NUMBER_LABEL_TEXT = "Number";
+
+    private JButton addButton;
 
     public static void main(String[] args) {
         show(new CoursesPanel());
@@ -36,7 +39,7 @@ public class CoursesPanel extends JPanel {
     private void createLayout() {
         JLabel coursesLabel = createLabel(COURSES_LABEL_NAME, COURSES_LABEL_TEXT);
         JList coursesList = createList(COURSES_LIST_NAME);
-        JButton addButton = createButton(ADD_BUTTON_NAME, ADD_BUTTON_TEXT);
+        addButton = createButton(ADD_BUTTON_NAME, ADD_BUTTON_TEXT);
 
         int columns = 20;
 
@@ -76,6 +79,10 @@ public class CoursesPanel extends JPanel {
         JTextField field = new JTextField(columns);
         field.setName(name);
         return field;
+    }
+
+    void addCourseAddListener(ActionListener listener) {
+        addButton.addActionListener(listener);
     }
 
     JLabel getLabel(String name) {

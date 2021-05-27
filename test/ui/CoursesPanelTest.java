@@ -5,11 +5,16 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static ui.CoursesPanel.*;
 
 public class CoursesPanelTest {
     private CoursesPanel panel;
+    private boolean wasCliicked;
 
     @BeforeEach
     protected void setUp(){
@@ -25,6 +30,21 @@ public class CoursesPanelTest {
         assertEmptyField(NUMBER_FIELD_NAME);
         assertLabelText(NUMBER_LABEL_NAME, NUMBER_LABEL_TEXT);
         assertEmptyField(NUMBER_FIELD_NAME);
+    }
+
+    @Test
+    public void testAddButtonClick() {
+        JButton button = panel.getButton(ADD_BUTTON_NAME);
+
+        wasCliicked = false;
+        panel.addCourseAddListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                wasCliicked = true;
+            }
+        });
+
+        button.doClick();
+        assertTrue(wasCliicked);
     }
 
     private void assertLabelText(String name, String text) {
