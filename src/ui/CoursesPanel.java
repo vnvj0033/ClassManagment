@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+import static java.awt.GridBagConstraints.*;
+
 public class CoursesPanel extends JPanel {
     public static final String NAME = "coursesPanel";
     public static final String COURSES_LABEL_TEXT = "Courses";
@@ -69,25 +71,40 @@ public class CoursesPanel extends JPanel {
     }
 
     JPanel createFieldsPanel() {
+        GridBagLayout layout = new GridBagLayout();
+
+        JPanel panel = new JPanel(layout);
         int columns = 20;
 
-        JLabel departmentLabel = createLabel(DEPARTMENT_LABEL_NAME, DEPARTMENT_LABEL_TEXT);
-        JTextField departmentField = createField(DEPARTMENT_FIELD_NAME, columns);
-        JLabel numberLabel = createLabel(NUMBER_LABEL_NAME, NUMBER_LABEL_TEXT);
-        JTextField numberField = createField(NUMBER_FIELD_NAME, columns);
-
-        int rows = 2;
-        int cols = 2;
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(rows, cols));
-
-        panel.add(departmentLabel);
-        panel.add(departmentField);
-        panel.add(numberLabel);
-        panel.add(numberField);
+        addField(panel, layout, 0, DEPARTMENT_LABEL_NAME, DEPARTMENT_LABEL_TEXT, DEPARTMENT_FIELD_NAME, columns);
+        addField(panel, layout, 1, NUMBER_LABEL_NAME, NUMBER_LABEL_TEXT, NUMBER_FIELD_NAME, columns);
 
         return panel;
+    }
+
+    private void addField(JPanel panel, GridBagLayout layout, int row, String labelName, String labelText, String fieldName, int fieldColumns) {
+        JLabel label = createLabel(labelName, labelText);
+        JTextField field = createField(fieldName, fieldColumns);
+
+        Insets insets = new Insets(3, 3, 3, 3);
+        layout.setConstraints(label, new GridBagConstraints(
+                0, row,
+                1, 1,
+                40, 1,
+                LINE_END, NONE,
+                insets,
+                0, 0));
+        layout.setConstraints(field, new GridBagConstraints(
+                1, row,
+                2, 1,
+                60, 1,
+                CENTER,
+                HORIZONTAL,
+                insets,
+                0, 0));
+
+        panel.add(label);
+        panel.add(field);
     }
 
     private JLabel createLabel(String name, String text) {
