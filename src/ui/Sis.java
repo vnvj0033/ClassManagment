@@ -1,17 +1,22 @@
 package ui;
 
 import studentInfo.Course;
+import util.ImageUtil;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Sis {
     static final int WIDTH = 300;
     static final int HEIGHT = 200;
+    static final String COURSES_TITLE = "Course Listing";
 
-    private JFrame frame = new JFrame();
+    private JFrame frame = new JFrame(COURSES_TITLE);
     private CoursesPanel panel;
+
+
 
     public static void main(String[] args) {
         new Sis().show();
@@ -35,6 +40,9 @@ public class Sis {
 
     private void initialize() {
         createCoursesPanel();
+
+        Image image = ImageUtil.create("/image/courses.gif");
+        frame.setIconImage(image);
 
         frame.setSize(WIDTH, HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

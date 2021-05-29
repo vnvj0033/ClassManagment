@@ -4,8 +4,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import studentInfo.Course;
+import util.ImageUtil;
 
 import javax.swing.*;
+
+import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,6 +29,10 @@ public class SisTest {
         assertEquals(Sis.WIDTH, frame.getSize().getWidth(), tolerance);
         assertEquals(JFrame.EXIT_ON_CLOSE, frame.getDefaultCloseOperation());
         assertNull(Util.getComponent(frame, CoursesPanel.NAME));
+        assertEquals(Sis.COURSES_TITLE, frame.getTitle());
+
+        Image image = frame.getIconImage();
+        assertEquals(image, ImageUtil.create("/images/courses.gif"));
     }
 
     @Test
