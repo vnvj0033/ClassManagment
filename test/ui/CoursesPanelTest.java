@@ -8,9 +8,10 @@ import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyListener;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static ui.CoursesPanel.*;
 
 public class CoursesPanelTest {
@@ -18,19 +19,21 @@ public class CoursesPanelTest {
     private boolean wasCliicked;
 
     @BeforeEach
-    protected void setUp(){
+    protected void setUp() {
         panel = new CoursesPanel();
     }
 
     @Test
     public void testCreate() {
-        assertLabelText(COURSES_LABEL_NAME, COURSES_LABEL_TEXT);
         assertEmptyList(COURSES_LIST_NAME);
         assertButtonText(ADD_BUTTON_NAME, ADD_BUTTON_TEXT);
         assertLabelText(DEPARTMENT_LABEL_NAME, DEPARTMENT_LABEL_TEXT);
-        assertEmptyField(NUMBER_FIELD_NAME);
+        assertEmptyField(DEPARTMENT_FIELD_NAME);
         assertLabelText(NUMBER_LABEL_NAME, NUMBER_LABEL_TEXT);
         assertEmptyField(NUMBER_FIELD_NAME);
+
+        JButton button = panel.getButton(ADD_BUTTON_NAME);
+        assertEquals(ADD_BUTTON_MNEMONIC, button.getMnemonic());
     }
 
     @Test
@@ -56,6 +59,28 @@ public class CoursesPanelTest {
         ListModel model = list.getModel();
         assertEquals("ENGL-101", model.getElementAt(0).toString());
     }
+
+    @Test
+    public void testEnableDisable() {
+        panel.setEnabled(ADD_BUTTON_NAME, true);
+        JButton button = panel.getButton(ADD_BUTTON_NAME);
+        assertTrue(button.isEnabled());
+
+        panel.setEnabled(ADD_BUTTON_NAME, false);
+        assertFalse(button.isEnabled());
+    }
+
+    @Test
+    public void testAddListener() throws Exception {
+        KeyListener listener = new KeyAdapter() {
+        };
+        panel.addFieldListener(DEPARTMENT_FIELD_NAME, listener);
+        JTextField field = panel.getField(DEPARTMENT_FIELD_NAME);
+        KeyListener[] listeners = field.getKeyListeners();
+        assertEquals(1, listeners.length);
+        assertSame(listener, listeners[0]);
+    }
+
 
     private void assertLabelText(String name, String text) {
         JLabel label = panel.getLabel(name);

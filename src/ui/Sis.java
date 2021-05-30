@@ -5,8 +5,7 @@ import util.ImageUtil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class Sis {
     static final int WIDTH = 300;
@@ -15,7 +14,6 @@ public class Sis {
 
     private JFrame frame = new JFrame(COURSES_TITLE);
     private CoursesPanel panel;
-
 
 
     public static void main(String[] args) {
@@ -40,6 +38,7 @@ public class Sis {
 
     private void initialize() {
         createCoursesPanel();
+        createKeyListeners();
 
         Image image = ImageUtil.create("/image/courses.gif");
         frame.setIconImage(image);
@@ -53,6 +52,7 @@ public class Sis {
         panel = new CoursesPanel();
         panel.addCourseAddListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                System.out.println("onClick");
                 addCourse();
             }
         });
@@ -61,5 +61,25 @@ public class Sis {
     private void addCourse() {
         Course course = new Course(panel.getText(CoursesPanel.DEPARTMENT_FIELD_NAME), panel.getText(CoursesPanel.NUMBER_FIELD_NAME));
         panel.addCourse(course);
+    }
+
+    void createKeyListeners() {
+        KeyListener listener = new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                setAddButtonState();
+            }
+        };
+        panel.addFieldListener(CoursesPanel.DEPARTMENT_FIELD_NAME, listener);
+        panel.addFieldListener(CoursesPanel.NUMBER_FIELD_NAME, listener);
+        setAddButtonState();
+    }
+
+    void setAddButtonState() {
+        panel.setEnabled(CoursesPanel.ADD_BUTTON_NAME, !isEmpty(CoursesPanel.DEPARTMENT_FIELD_NAME) && !isEmpty(CoursesPanel.NUMBER_FIELD_NAME));
+    }
+
+    private boolean isEmpty(String field) {
+        String value = panel.getText(field);
+        return value.trim().equals("");
     }
 }
