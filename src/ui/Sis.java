@@ -4,6 +4,7 @@ import studentInfo.Course;
 import util.ImageUtil;
 
 import javax.swing.*;
+import javax.swing.text.AbstractDocument;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -39,6 +40,7 @@ public class Sis {
     private void initialize() {
         createCoursesPanel();
         createKeyListeners();
+        createInputFilters();
 
         Image image = ImageUtil.create("/image/courses.gif");
         frame.setIconImage(image);
@@ -72,6 +74,12 @@ public class Sis {
         panel.addFieldListener(CoursesPanel.DEPARTMENT_FIELD_NAME, listener);
         panel.addFieldListener(CoursesPanel.NUMBER_FIELD_NAME, listener);
         setAddButtonState();
+    }
+
+    private void createInputFilters() {
+        JTextField field = panel.getField(CoursesPanel.DEPARTMENT_FIELD_NAME);
+        AbstractDocument document = (AbstractDocument) field.getDocument();
+        document.setDocumentFilter(new UpcaseFilter());
     }
 
     void setAddButtonState() {

@@ -7,6 +7,8 @@ import studentInfo.Course;
 import util.ImageUtil;
 
 import javax.swing.*;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.DocumentFilter;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
@@ -36,6 +38,11 @@ public class SisTest {
         assertNotNull(Util.getComponent(frame, CoursesPanel.NAME));
         assertEquals(Sis.COURSES_TITLE, frame.getTitle());
 
+        CoursesPanel panel = (CoursesPanel) Util.getComponent(frame, CoursesPanel.NAME);
+        assertNotNull(panel);
+
+        verifyFilter(panel);
+
         Image image = frame.getIconImage();
         assertEquals(image, ImageUtil.create("/images/courses.gif"));
     }
@@ -48,12 +55,11 @@ public class SisTest {
 
     @Test
     public void testAddCourse() {
-        CoursesPanel panel = (CoursesPanel) Util.getComponent(frame, CoursesPanel.NAME);
-
         panel.setText(CoursesPanel.DEPARTMENT_FIELD_NAME, "MATH");
         panel.setText(CoursesPanel.NUMBER_FIELD_NAME, "300");
 
         JButton button = panel.getButton(CoursesPanel.ADD_BUTTON_NAME);
+
         button.doClick();
 
         Course course = panel.getCourse(0);
@@ -70,8 +76,10 @@ public class SisTest {
         assertFalse(button.isEnabled());
         selectField(CoursesPanel.DEPARTMENT_FIELD_NAME);
         type('A');
+        Thread.sleep(100);
         selectField(CoursesPanel.NUMBER_FIELD_NAME);
         type('1');
+        Thread.sleep(100);
         assertTrue(button.isEnabled());
     }
 
@@ -103,12 +111,23 @@ public class SisTest {
         Point point = field.getLocationOnScreen();
         robot.mouseMove(point.x, point.y);
         robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        robot.mouseRelease(InputEvent.BUTTON2_DOWN_MASK);
+        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
     }
 
     private void type(int key) throws Exception {
         robot.keyPress(key);
         robot.keyRelease(key);
+    }
+
+    private void verifyFilter(CoursesPanel panel) {
+        DocumentFilter filter = getFilter(panel, CoursesPanel.DEPARTMENT_FIELD_NAME);
+        assertTrue(filter.getClass() == UpcaseFilter.class);
+    }
+
+    private DocumentFilter getFilter(CoursesPanel panel, String fieldName) {
+        JTextField field = panel.getField(fieldName);
+        AbstractDocument document = (AbstractDocument) field.getDocument();
+        return document.getDocumentFilter();
     }
 
 
