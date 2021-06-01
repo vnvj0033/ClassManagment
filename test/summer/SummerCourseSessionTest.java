@@ -2,7 +2,7 @@ package summer;
 
 import org.junit.jupiter.api.Test;
 import studentInfo.Course;
-import studentInfo.DateUtil;
+import util.DateUtil;
 import studentInfo.Session;
 import studentInfo.SessionTest;
 

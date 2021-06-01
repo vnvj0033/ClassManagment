@@ -8,7 +8,6 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
-
 import static java.awt.GridBagConstraints.*;
 
 public class CoursesPanel extends JPanel {
@@ -86,17 +85,30 @@ public class CoursesPanel extends JPanel {
         GridBagLayout layout = new GridBagLayout();
 
         JPanel panel = new JPanel(layout);
-        int columns = 20;
+        int i = 0;
+        FieldCatalog catalog = new FieldCatalog();
 
-        addField(panel, layout, 0, DEPARTMENT_LABEL_NAME, DEPARTMENT_LABEL_TEXT, DEPARTMENT_FIELD_NAME, columns);
-        addField(panel, layout, 1, NUMBER_LABEL_NAME, NUMBER_LABEL_TEXT, NUMBER_FIELD_NAME, columns);
+        for (String fieldName : getFieldName()){
+            Field fieldSpec = catalog.get(fieldName);
+            addField(panel, layout, i++, createLabel(fieldSpec), TextFieldFactory.create(fieldSpec));
+        }
 
         return panel;
     }
 
-    private void addField(JPanel panel, GridBagLayout layout, int row, String labelName, String labelText, String fieldName, int fieldColumns) {
-        JLabel label = createLabel(labelName, labelText);
-        JTextField field = createField(fieldName, fieldColumns);
+    private JLabel createLabel(Field fieldSpec) {
+        return new JLabel(fieldSpec.getLabel());
+    }
+
+    private String[] getFieldName() {
+        return new String[] {
+                FieldCatalog.DEPARTMENT_FIELD_NAME,
+                FieldCatalog.NUMBER_FIELD_NAME,
+                FieldCatalog.EFFECTIVE_DATE_FIELD_NAME
+        };
+    }
+
+    private void addField(JPanel panel, GridBagLayout layout, int row, JLabel label, JTextField textField) {
 
         Insets insets = new Insets(3, 3, 3, 3);
         layout.setConstraints(label, new GridBagConstraints(
@@ -106,7 +118,7 @@ public class CoursesPanel extends JPanel {
                 LINE_END, NONE,
                 insets,
                 0, 0));
-        layout.setConstraints(field, new GridBagConstraints(
+        layout.setConstraints(textField, new GridBagConstraints(
                 1, row,
                 2, 1,
                 60, 1,
@@ -116,7 +128,7 @@ public class CoursesPanel extends JPanel {
                 0, 0));
 
         panel.add(label);
-        panel.add(field);
+        panel.add(textField);
     }
 
     private JLabel createLabel(String name, String text) {

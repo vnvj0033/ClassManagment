@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static studentInfo.DateUtil.createDate;
+import static util.DateUtil.createDate;
 
 abstract public class SessionTest {
     private Session session;

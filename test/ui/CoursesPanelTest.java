@@ -27,10 +27,11 @@ public class CoursesPanelTest {
     public void testCreate() {
         assertEmptyList(COURSES_LIST_NAME);
         assertButtonText(ADD_BUTTON_NAME, ADD_BUTTON_TEXT);
-        assertLabelText(DEPARTMENT_LABEL_NAME, DEPARTMENT_LABEL_TEXT);
-        assertEmptyField(DEPARTMENT_FIELD_NAME);
-        assertLabelText(NUMBER_LABEL_NAME, NUMBER_LABEL_TEXT);
-        assertEmptyField(NUMBER_FIELD_NAME);
+
+        String[] fields = {FieldCatalog.DEPARTMENT_FIELD_NAME,
+                FieldCatalog.NUMBER_FIELD_NAME,
+                FieldCatalog.EFFECTIVE_DATE_FIELD_NAME};
+        assertFields(fields);
 
         JButton button = panel.getButton(ADD_BUTTON_NAME);
         assertEquals(ADD_BUTTON_MNEMONIC, button.getMnemonic());
@@ -81,6 +82,14 @@ public class CoursesPanelTest {
         assertSame(listener, listeners[0]);
     }
 
+    private void assertFields(String[] fieldNames) {
+        FieldCatalog catalog = new FieldCatalog();
+        for (String fieldName : fieldNames) {
+            assertNotNull(panel.getField(fieldName));
+            Field fieldSpec = catalog.get(fieldName);
+            assertLabelText(fieldSpec.getLabelName(), fieldSpec.getLabel());
+        }
+    }
 
     private void assertLabelText(String name, String text) {
         JLabel label = panel.getLabel(name);

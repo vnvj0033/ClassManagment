@@ -1,6 +1,7 @@
-package studentInfo;
+package util;
 
 import org.junit.jupiter.api.Test;
+import util.DateUtil;
 
 import java.util.Calendar;
 import java.util.Date;

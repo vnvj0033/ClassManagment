@@ -4,7 +4,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
-public class UpcaseFilter extends DocumentFilter {
+public class UpcaseFilter extends ChainableFilter {
     public void insertString(
             DocumentFilter.FilterBypass bypass,
             int offset,
