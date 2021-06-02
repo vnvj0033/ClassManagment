@@ -6,7 +6,7 @@ import javax.swing.text.*;
 
 public class TextFieldFactory {
     public static JTextField create(Field fieldSpec) {
-        JTextField field = null;
+        JTextField field;
 
         if (fieldSpec.getFormat() != null)
             field = createFormattedTextField(fieldSpec);

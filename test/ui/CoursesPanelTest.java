@@ -28,6 +28,7 @@ public class CoursesPanelTest {
         assertEmptyList(COURSES_LIST_NAME);
         assertButtonText(ADD_BUTTON_NAME, ADD_BUTTON_TEXT);
 
+
         String[] fields = {FieldCatalog.DEPARTMENT_FIELD_NAME,
                 FieldCatalog.NUMBER_FIELD_NAME,
                 FieldCatalog.EFFECTIVE_DATE_FIELD_NAME};
@@ -87,7 +88,8 @@ public class CoursesPanelTest {
         for (String fieldName : fieldNames) {
             assertNotNull(panel.getField(fieldName));
             Field fieldSpec = catalog.get(fieldName);
-            assertLabelText(fieldSpec.getLabelName(), fieldSpec.getLabel());
+
+            assertLabelText(fieldSpec.getLabelName(), fieldSpec.getLabelText());
         }
     }
 

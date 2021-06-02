@@ -13,16 +13,11 @@ import static java.awt.GridBagConstraints.*;
 public class CoursesPanel extends JPanel {
     public static final String NAME = "coursesPanel";
     public static final String COURSES_LABEL_TEXT = "Courses";
-    public static final String COURSES_LABEL_NAME = "coursesLabel";
     public static final String COURSES_LIST_NAME = "coursesList";
     public static final String ADD_BUTTON_TEXT = "Add";
     public static final String ADD_BUTTON_NAME = "addButton";
     public static final String DEPARTMENT_FIELD_NAME = "deptField";
     public static final String NUMBER_FIELD_NAME = "numberField";
-    public static final String DEPARTMENT_LABEL_NAME = "deptLabel";
-    public static final String NUMBER_LABEL_NAME = "numberLabel";
-    public static final String DEPARTMENT_LABEL_TEXT = "Department";
-    public static final String NUMBER_LABEL_TEXT = "Number";
 
     static final char ADD_BUTTON_MNEMONIC = 'A';
 
@@ -97,7 +92,7 @@ public class CoursesPanel extends JPanel {
     }
 
     private JLabel createLabel(Field fieldSpec) {
-        return new JLabel(fieldSpec.getLabel());
+        return fieldSpec.getLabel();
     }
 
     private String[] getFieldName() {
@@ -131,12 +126,6 @@ public class CoursesPanel extends JPanel {
         panel.add(textField);
     }
 
-    private JLabel createLabel(String name, String text) {
-        JLabel label = new JLabel(text);
-        label.setName(name);
-        return label;
-    }
-
     private JList createList(String name, ListModel model) {
         JList list = new JList(model);
         list.setName(name);
@@ -147,12 +136,6 @@ public class CoursesPanel extends JPanel {
         JButton button = new JButton(text);
         button.setName(name);
         return button;
-    }
-
-    private JTextField createField(String name, int columns) {
-        JTextField field = new JTextField(columns);
-        field.setName(name);
-        return field;
     }
 
     void addCourse(Course course) {

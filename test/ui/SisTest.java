@@ -76,10 +76,10 @@ public class SisTest {
         assertFalse(button.isEnabled());
         selectField(CoursesPanel.DEPARTMENT_FIELD_NAME);
         type('A');
-        Thread.sleep(100);
+        Thread.sleep(300);
         selectField(CoursesPanel.NUMBER_FIELD_NAME);
         type('1');
-        Thread.sleep(100);
+        Thread.sleep(300);
         assertTrue(button.isEnabled());
     }
 

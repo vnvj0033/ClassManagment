@@ -23,7 +23,7 @@ public class TestUtil {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         assertEquals(year, calendar.get(Calendar.YEAR));
-        assertEquals(month, calendar.get(Calendar.MONTH));
+        assertEquals(month, calendar.get(Calendar.WEEK_OF_MONTH));
         assertEquals(day, calendar.get(Calendar.DAY_OF_MONTH));
     }
 }
