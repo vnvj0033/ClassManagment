@@ -1,12 +1,15 @@
 package ui;
 
 import studentInfo.Course;
+import util.DateUtil;
 import util.ImageUtil;
 
 import javax.swing.*;
 import javax.swing.text.AbstractDocument;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Sis {
     static final int WIDTH = 300;
@@ -62,7 +65,12 @@ public class Sis {
 
     private void addCourse() {
         Course course = new Course(panel.getText(CoursesPanel.DEPARTMENT_FIELD_NAME), panel.getText(CoursesPanel.NUMBER_FIELD_NAME));
-        panel.addCourse(course);
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy");
+        try {
+            Date date = format.parse(panel.getText(FieldCatalog.EFFECTIVE_DATE_FIELD_NAME));
+            course.setEffectiveDate(date);
+            panel.addCourse(course);
+        }catch (Exception e){ }
     }
 
     void createKeyListeners() {

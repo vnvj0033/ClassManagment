@@ -29,14 +29,10 @@ class CoursesTableModel extends AbstractTableModel {
     public Object getValueAt(int row, int column) {
         Course course = courses.get(row);
         switch (column) {
-            case 0:
-                return course.getDepartment();
-            case 1:
-                return course.getNumber();
-            case 2:
-                return formatter.format(course.getEffectiveDate());
-            default:
-                return "";
+            case 0: return course.getDepartment();
+            case 1: return course.getNumber();
+            case 2: return formatter.format(course.getEffectiveDate());
+            default: return "";
         }
     }
 

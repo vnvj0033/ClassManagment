@@ -1,6 +1,7 @@
 package ui;
 
 import studentInfo.Course;
+import util.DateUtil;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -24,7 +25,6 @@ public class CoursesPanel extends JPanel {
     static final char ADD_BUTTON_MNEMONIC = 'A';
 
     private JButton addButton;
-    private DefaultListModel coursesModel = new DefaultListModel();
     private CoursesTableModel coursesTableModel = new CoursesTableModel();
 
     public static void main(String[] args) {
@@ -46,8 +46,7 @@ public class CoursesPanel extends JPanel {
 
     private void createLayout() {
         JTable coursesTable = createCoursesTable();
-        JList coursesList = createList(COURSES_LIST_NAME, coursesModel);
-        JScrollPane coursesScroll = new JScrollPane(coursesList);
+        JScrollPane coursesScroll = new JScrollPane(coursesTable);
         coursesScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         setLayout(new BorderLayout());
@@ -136,12 +135,6 @@ public class CoursesPanel extends JPanel {
 
         panel.add(label);
         panel.add(textField);
-    }
-
-    private JList createList(String name, ListModel model) {
-        JList list = new JList(model);
-        list.setName(name);
-        return list;
     }
 
     private JButton createButton(String name, String text) {

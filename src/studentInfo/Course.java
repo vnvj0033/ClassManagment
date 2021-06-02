@@ -23,6 +23,14 @@ public class Course implements Serializable {
         return number;
     }
 
+    public Date getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    public void setEffectiveDate(Date date) {
+        this.effectiveDate = date;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (object == null)
@@ -45,13 +53,5 @@ public class Course implements Serializable {
     @Override
     public String toString() {
         return department + " " + number;
-    }
-
-    public Date getEffectiveDate() {
-        return effectiveDate;
-    }
-
-    public void setEffectiveDate(Date date) {
-        this.effectiveDate = date;
     }
 }

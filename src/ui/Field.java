@@ -90,11 +90,11 @@ public class Field {
     public String getShortName() {
         String shortName = "";
         if (fieldName.equals(FieldCatalog.DEPARTMENT_FIELD_NAME))
-            shortName = "dept";
+            shortName = "Dept";
         if (fieldName.equals(FieldCatalog.NUMBER_FIELD_NAME))
-            shortName = "num";
+            shortName = "#";
         if (fieldName.equals(FieldCatalog.EFFECTIVE_DATE_FIELD_NAME))
-            shortName = "eff";
+            shortName = "Eff. Date";
         return shortName;
     }
 }
