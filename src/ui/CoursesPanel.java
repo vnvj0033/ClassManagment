@@ -1,7 +1,6 @@
 package ui;
 
 import studentInfo.Course;
-import util.DateUtil;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -26,6 +25,7 @@ public class CoursesPanel extends JPanel {
 
     private JButton addButton;
     private CoursesTableModel coursesTableModel = new CoursesTableModel();
+    private Status status;
 
     public static void main(String[] args) {
         show(new CoursesPanel());
@@ -70,6 +70,19 @@ public class CoursesPanel extends JPanel {
     }
 
     JPanel createBottomPanel() {
+        StatusBar statusBar = new StatusBar();
+        statusBar.setBorder(BorderFactory.createLoweredBevelBorder());
+        status = new Status(statusBar);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.add(statusBar, BorderLayout.SOUTH);
+        panel.add(createInputPanel(), BorderLayout.CENTER);
+        return panel;
+
+    }
+
+    private JPanel createInputPanel() {
         addButton = createButton(ADD_BUTTON_NAME, ADD_BUTTON_TEXT);
         addButton.setMnemonic(ADD_BUTTON_MNEMONIC);
 
@@ -89,14 +102,15 @@ public class CoursesPanel extends JPanel {
 
     JPanel createFieldsPanel() {
         GridBagLayout layout = new GridBagLayout();
-
         JPanel panel = new JPanel(layout);
         int i = 0;
         FieldCatalog catalog = new FieldCatalog();
 
         for (String fieldName : getFieldName()) {
             Field fieldSpec = catalog.get(fieldName);
-            addField(panel, layout, i++, createLabel(fieldSpec), TextFieldFactory.create(fieldSpec));
+            JTextField textField = TextFieldFactory.create(fieldSpec);
+            status.addText(textField, fieldSpec.getInfo());
+            addField(panel, layout, i++, createLabel(fieldSpec), textField);
         }
 
         return panel;

@@ -15,6 +15,7 @@ public class Field {
     private DateFormat dateFormat;
     private boolean isUpcase = false;
     private Object initialValue;
+    private String info;
 
     public Field(String fieldName) {
         this.fieldName = fieldName;
@@ -96,5 +97,13 @@ public class Field {
         if (fieldName.equals(FieldCatalog.EFFECTIVE_DATE_FIELD_NAME))
             shortName = "Eff. Date";
         return shortName;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getInfo() {
+        return info;
     }
 }

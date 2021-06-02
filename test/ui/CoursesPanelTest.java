@@ -84,11 +84,13 @@ public class CoursesPanelTest {
     }
 
     private void assertFields(String[] fieldNames) {
+        StatusBar statusBar = (StatusBar) Util.getComponent(panel, StatusBar.NAME);
         FieldCatalog catalog = new FieldCatalog();
         for (String fieldName : fieldNames) {
-            assertNotNull(panel.getField(fieldName));
+            JTextField field = panel.getField(fieldName);
             Field fieldSpec = catalog.get(fieldName);
 
+            assertEquals(fieldSpec.getInfo(), statusBar.getInfo(field));
             assertLabelText(fieldSpec.getLabelName(), fieldSpec.getLabelText());
         }
     }
