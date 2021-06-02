@@ -2,11 +2,13 @@ package studentInfo;
 
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Course implements Serializable {
 
     private String department;
     private String number;
+    private Date effectiveDate;
 
     public Course(String department, String number) {
         this.department = department;
@@ -43,5 +45,13 @@ public class Course implements Serializable {
     @Override
     public String toString() {
         return department + " " + number;
+    }
+
+    public Date getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    public void setEffectiveDate(Date date) {
+        this.effectiveDate = date;
     }
 }

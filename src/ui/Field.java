@@ -86,4 +86,15 @@ public class Field {
     public JLabel getLabel() {
         return label;
     }
+
+    public String getShortName() {
+        String shortName = "";
+        if (fieldName.equals(FieldCatalog.DEPARTMENT_FIELD_NAME))
+            shortName = "dept";
+        if (fieldName.equals(FieldCatalog.NUMBER_FIELD_NAME))
+            shortName = "num";
+        if (fieldName.equals(FieldCatalog.EFFECTIVE_DATE_FIELD_NAME))
+            shortName = "eff";
+        return shortName;
+    }
 }

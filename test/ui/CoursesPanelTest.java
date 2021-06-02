@@ -25,7 +25,7 @@ public class CoursesPanelTest {
 
     @Test
     public void testCreate() {
-        assertEmptyList(COURSES_LIST_NAME);
+        assertEmptyList(COURSES_TABLE_NAME);
         assertButtonText(ADD_BUTTON_NAME, ADD_BUTTON_TEXT);
 
 

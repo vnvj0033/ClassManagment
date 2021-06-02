@@ -8,6 +8,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+
 import static java.awt.GridBagConstraints.*;
 
 public class CoursesPanel extends JPanel {
@@ -18,11 +19,13 @@ public class CoursesPanel extends JPanel {
     public static final String ADD_BUTTON_NAME = "addButton";
     public static final String DEPARTMENT_FIELD_NAME = "deptField";
     public static final String NUMBER_FIELD_NAME = "numberField";
+    public static final String COURSES_TABLE_NAME = "coursesTable";
 
     static final char ADD_BUTTON_MNEMONIC = 'A';
 
     private JButton addButton;
     private DefaultListModel coursesModel = new DefaultListModel();
+    private CoursesTableModel coursesTableModel = new CoursesTableModel();
 
     public static void main(String[] args) {
         show(new CoursesPanel());
@@ -42,6 +45,7 @@ public class CoursesPanel extends JPanel {
     }
 
     private void createLayout() {
+        JTable coursesTable = createCoursesTable();
         JList coursesList = createList(COURSES_LIST_NAME, coursesModel);
         JScrollPane coursesScroll = new JScrollPane(coursesList);
         coursesScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -56,6 +60,14 @@ public class CoursesPanel extends JPanel {
 
         add(coursesScroll, BorderLayout.CENTER);
         add(createBottomPanel(), BorderLayout.SOUTH);
+    }
+
+    private JTable createCoursesTable() {
+        JTable table = new JTable(coursesTableModel);
+        table.setName(COURSES_TABLE_NAME);
+        table.setShowGrid(false);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        return table;
     }
 
     JPanel createBottomPanel() {
@@ -83,7 +95,7 @@ public class CoursesPanel extends JPanel {
         int i = 0;
         FieldCatalog catalog = new FieldCatalog();
 
-        for (String fieldName : getFieldName()){
+        for (String fieldName : getFieldName()) {
             Field fieldSpec = catalog.get(fieldName);
             addField(panel, layout, i++, createLabel(fieldSpec), TextFieldFactory.create(fieldSpec));
         }
@@ -96,7 +108,7 @@ public class CoursesPanel extends JPanel {
     }
 
     private String[] getFieldName() {
-        return new String[] {
+        return new String[]{
                 FieldCatalog.DEPARTMENT_FIELD_NAME,
                 FieldCatalog.NUMBER_FIELD_NAME,
                 FieldCatalog.EFFECTIVE_DATE_FIELD_NAME
@@ -139,7 +151,11 @@ public class CoursesPanel extends JPanel {
     }
 
     void addCourse(Course course) {
-        coursesModel.addElement(new CourseDisplayAdapter(course));
+        coursesTableModel.add(course);
+    }
+
+    Course getCourse(int index) {
+        return coursesTableModel.get(index);
     }
 
     void addCourseAddListener(ActionListener listener) {
@@ -156,11 +172,6 @@ public class CoursesPanel extends JPanel {
 
     void addFieldListener(String name, KeyListener listener) {
         getField(name).addKeyListener(listener);
-    }
-
-    Course getCourse(int index) {
-        Course adapter = (CourseDisplayAdapter) coursesModel.getElementAt(index);
-        return adapter;
     }
 
     JLabel getLabel(String name) {
