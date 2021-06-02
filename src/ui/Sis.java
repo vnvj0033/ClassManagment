@@ -64,13 +64,21 @@ public class Sis {
     }
 
     private void addCourse() {
-        Course course = new Course(panel.getText(CoursesPanel.DEPARTMENT_FIELD_NAME), panel.getText(CoursesPanel.NUMBER_FIELD_NAME));
-        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy");
-        try {
-            Date date = format.parse(panel.getText(FieldCatalog.EFFECTIVE_DATE_FIELD_NAME));
-            course.setEffectiveDate(date);
-            panel.addCourse(course);
-        }catch (Exception e){ }
+        frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        try{
+            Course course = new Course(panel.getText(CoursesPanel.DEPARTMENT_FIELD_NAME), panel.getText(CoursesPanel.NUMBER_FIELD_NAME));
+            try { Thread.sleep(3000); }catch (InterruptedException e){ }
+
+            SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy");
+
+            try {
+                Date date = format.parse(panel.getText(FieldCatalog.EFFECTIVE_DATE_FIELD_NAME));
+                course.setEffectiveDate(date);
+                panel.addCourse(course);
+            }catch (Exception e){ }
+        }finally {
+            frame.setCursor(Cursor.getDefaultCursor());
+        }
     }
 
     void createKeyListeners() {
