@@ -54,21 +54,6 @@ public class SisTest {
     }
 
     @Test
-    public void testAddCourse() {
-        panel.setText(CoursesPanel.DEPARTMENT_FIELD_NAME, "MATH");
-        panel.setText(CoursesPanel.NUMBER_FIELD_NAME, "300");
-
-        JButton button = panel.getButton(CoursesPanel.ADD_BUTTON_NAME);
-
-        button.doClick();
-
-        Course course = panel.getCourse(0);
-        assertEquals("MATH", course.getDepartment());
-        assertEquals("300", course.getNumber());
-    }
-
-
-    @Test
     public void testKeyListeners() throws Exception {
         sis.show();
 

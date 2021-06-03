@@ -25,7 +25,6 @@ public class CoursesPanelTest {
 
     @Test
     public void testCreate() {
-        assertEmptyList(COURSES_TABLE_NAME);
         assertButtonText(ADD_BUTTON_NAME, ADD_BUTTON_TEXT);
 
 
@@ -51,15 +50,6 @@ public class CoursesPanelTest {
 
         button.doClick();
         assertTrue(wasCliicked);
-    }
-
-    @Test
-    public void testAddCourse() {
-        Course course = new Course("ENGL", "101");
-        panel.addCourse(course);
-        JList list = panel.getList(COURSES_LIST_NAME);
-        ListModel model = list.getModel();
-        assertEquals("ENGL-101", model.getElementAt(0).toString());
     }
 
     @Test
@@ -98,16 +88,6 @@ public class CoursesPanelTest {
     private void assertLabelText(String name, String text) {
         JLabel label = panel.getLabel(name);
         assertEquals(text, label.getText());
-    }
-
-    private void assertEmptyField(String name) {
-        JTextField field = panel.getField(name);
-        assertEquals("", field.getText());
-    }
-
-    private void assertEmptyList(String name) {
-        JList list = panel.getList(name);
-        assertEquals(0, list.getModel().getSize());
     }
 
     private void assertButtonText(String name, String text) {
