@@ -3,7 +3,6 @@ package ui;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import studentInfo.Course;
 import util.ImageUtil;
 
 import javax.swing.*;

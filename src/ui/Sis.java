@@ -67,7 +67,7 @@ public class Sis {
         frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try{
             Course course = new Course(panel.getText(CoursesPanel.DEPARTMENT_FIELD_NAME), panel.getText(CoursesPanel.NUMBER_FIELD_NAME));
-            try { Thread.sleep(3000); }catch (InterruptedException e){ }
+            try { Thread.sleep(300); }catch (InterruptedException e){ }
 
             SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy");
 
