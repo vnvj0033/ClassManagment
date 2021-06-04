@@ -7,7 +7,7 @@ public class StringUtil {
         int occurrences = 0;
         int length = substring.length();
         final boolean ignoreCase = true;
-        for (int i = 0; i < string.length() - substring.length() + 1; i++){
+        for (int i = 0; i < string.length() - substring.length() + 1; i++) {
             if (string.regionMatches(ignoreCase, i, substring, 0, length))
                 occurrences++;
         }
@@ -15,20 +15,24 @@ public class StringUtil {
         return occurrences;
     }
 
-    public static String concatenate(List<?> list){
+    public static String concatenate(List<?> list) {
         StringBuilder builder = new StringBuilder();
         for (Object element : list)
             builder.append(String.format("%s%n", element));
         return builder.toString();
     }
 
-    public static String concatenateNumbers(List<? extends Number> list, int decimalPlaces){
+    public static String concatenateNumbers(List<? extends Number> list, int decimalPlaces) {
         String decimalFormat = "%." + decimalPlaces + "f";
         StringBuilder builder = new StringBuilder();
-        for (Number element:list) {
+        for (Number element : list) {
             double value = element.doubleValue();
             builder.append(String.format(decimalFormat + "%n", value));
         }
         return builder.toString();
+    }
+
+    public static String stripToDigits(String input) {
+        return input.replaceAll("\\D+", "");
     }
 }

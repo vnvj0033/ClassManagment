@@ -44,22 +44,28 @@ public class StringUtilTest {
     }
 
     @Test
-    public void testConcatenateFormattedDecimals(){
+    public void testConcatenateFormattedDecimals() {
         List<BigDecimal> list = new ArrayList<>();
         list.add(new BigDecimal("3.1416"));
         list.add(new BigDecimal("-1.4142"));
 
-        String output = StringUtil.concatenateNumbers(list,3);
+        String output = StringUtil.concatenateNumbers(list, 3);
         assertEquals(String.format("3.142%n-1.414%n"), output);
     }
 
     @Test
-    public void testConcatenateFormattedIntegers(){
+    public void testConcatenateFormattedIntegers() {
         List<Integer> list = new ArrayList<>();
         list.add(12);
         list.add(17);
 
         String output = StringUtil.concatenateNumbers(list, 0);
         assertEquals(String.format("12%n17%n"), output);
+    }
+
+    @Test
+    public void testStripPhoneNumber() {
+        String input = "(719) 555-9353 (home)";
+        assertEquals("7195559353", StringUtil.stripToDigits(input));
     }
 }

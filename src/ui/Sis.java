@@ -1,7 +1,6 @@
 package ui;
 
 import studentInfo.Course;
-import util.DateUtil;
 import util.ImageUtil;
 
 import javax.swing.*;
