@@ -2,10 +2,7 @@ package studentInfo;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -79,5 +76,19 @@ public class CourseTest {
     void testToString() {
         Course course = new Course("ENGL", "301");
         assertEquals("ENGL 301", course.toString());
+    }
+
+    @Test
+    void testClone() {
+        final String department = "CHEM";
+        final String number = "400";
+        final Date now = new Date();
+        Course course = new Course(department, number);
+        course.setEffectiveDate(now);
+        Course copy = course.clone();
+        assertFalse(copy == course);
+        assertEquals(department, copy.getDepartment());
+        assertEquals(number, copy.getNumber());
+        assertEquals(now, copy.getEffectiveDate());
     }
 }

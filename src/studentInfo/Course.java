@@ -4,7 +4,7 @@ package studentInfo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Course implements Serializable {
+public class Course implements Serializable, Cloneable {
 
     private String department;
     private String number;
@@ -29,6 +29,17 @@ public class Course implements Serializable {
 
     public void setEffectiveDate(Date date) {
         this.effectiveDate = date;
+    }
+
+    @Override
+    protected Course clone()  {
+        Course copy = null;
+        try{
+            copy = (Course) super.clone();
+        }catch (CloneNotSupportedException impossible){
+            throw new RuntimeException("unable to clone");
+        }
+        return copy;
     }
 
     @Override
