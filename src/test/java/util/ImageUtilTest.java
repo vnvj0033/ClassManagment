@@ -10,6 +10,6 @@ public class ImageUtilTest {
     @Test
     public void testLoadImage() {
         assertNull(ImageUtil.create("/images/bogusFilename.gif"));
-        assertNotNull(ImageUtil.create("/images/courses.gif"));
+        assertNotNull(ImageUtil.create("/images/download.png"));
     }
 }

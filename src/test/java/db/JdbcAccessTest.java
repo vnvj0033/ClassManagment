@@ -2,11 +2,11 @@ package db;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import search.SearchTest;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,13 +18,14 @@ public class JdbcAccessTest {
     public void setUp() {
         access = new JdbcAccess("test");
     }
+
     @Test
     public void testConnection() throws SQLException {
         Connection connection = null;
         try {
-         connection = access.getConnection();
-         assertFalse(connection.isClosed());
-        }finally {
+            connection = access.getConnection();
+            assertFalse(connection.isClosed());
+        } finally {
             connection.close();
         }
     }
@@ -32,9 +33,9 @@ public class JdbcAccessTest {
     @Test
     public void testExecute() throws SQLException {
         access.execute("create table testExecute (fieldA char)");
-        try{
+        try {
             assertEquals("fieldA", access.getFirstRowFirstColumn("desc testExecute"));
-        }finally {
+        } finally {
             access.execute("drop table testExecute");
         }
     }
@@ -51,7 +52,22 @@ public class JdbcAccessTest {
 
             statement = access.prepare("select id, name from testQueryBy where id = ?");
 
-            List<S>
+            List<String> row = access.getUnique(statement, "234");
+            assertEquals("234", row.get(0));
+            assertEquals("patella", row.get(1));
+
+            row = access.getUnique(statement, "123");
+            assertEquals("123", row.get(0));
+            assertEquals("schmoe", row.get(1));
+        } finally {
+            statement.close();
+            drop("testQueryBy");
         }
+    }
+
+    private void drop(String tableName) {
+        try {
+            access.execute("drop table " + tableName);
+        } catch (SQLException ignore) { }
     }
 }
