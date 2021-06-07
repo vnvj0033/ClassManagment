@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class LineWriter {
-    public static void write(String filename, String[] records) throws IOException {
+    public static void write(String filename, String... records) throws IOException {
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter(filename));
