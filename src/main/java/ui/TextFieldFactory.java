@@ -34,7 +34,7 @@ public class TextFieldFactory {
         attachFilter(field, new UpcaseFilter());
     }
 
-    private static void attachFilter(JTextField field, ChainableFilter filter) {
+    private static void attachFilter(JTextField field, DocumentFilter filter) {
         AbstractDocument document = (AbstractDocument) field.getDocument();
         ChainableFilter existingFilter = (ChainableFilter) document.getDocumentFilter();
         if (existingFilter == null)

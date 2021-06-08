@@ -84,32 +84,12 @@ public class Sis {
     void createKeyListeners() {
         KeyListener listener = new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
-                backspaceInput(e);
                 setAddButtonState();
             }
         };
         panel.addFieldListener(CoursesPanel.DEPARTMENT_FIELD_NAME, listener);
         panel.addFieldListener(CoursesPanel.NUMBER_FIELD_NAME, listener);
         setAddButtonState();
-    }
-
-    private void backspaceInput(KeyEvent e) {
-        if (e.getKeyCode() != 8) return;
-
-        String[] fieldNames = {CoursesPanel.DEPARTMENT_FIELD_NAME, CoursesPanel.NUMBER_FIELD_NAME};
-
-        try {
-            removeFocusFieldText(fieldNames);
-        } catch (BadLocationException ignored) { }
-    }
-
-    private void removeFocusFieldText(String[] fieldNames) throws BadLocationException {
-        for (String fieldName : fieldNames){
-            JTextField textField = panel.getField(fieldName);
-            if (!textField.isFocusOwner())
-                continue;
-            textField.setText(textField.getText(0,textField.getText().length()-1));
-        }
     }
 
     private void createInputFilters() {

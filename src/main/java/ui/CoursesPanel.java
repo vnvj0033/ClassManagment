@@ -14,7 +14,6 @@ import static java.awt.GridBagConstraints.*;
 public class CoursesPanel extends JPanel {
     public static final String NAME = "coursesPanel";
     public static final String COURSES_LABEL_TEXT = "Courses";
-    public static final String COURSES_LIST_NAME = "coursesList";
     public static final String ADD_BUTTON_TEXT = "Add";
     public static final String ADD_BUTTON_NAME = "addButton";
     public static final String DEPARTMENT_FIELD_NAME = "deptField";
@@ -33,7 +32,7 @@ public class CoursesPanel extends JPanel {
 
     private static void show(JPanel panel) {
         JFrame frame = new JFrame();
-        frame.setSize(300, 200);
+        frame.setSize(300, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(panel);
         frame.setVisible(true);
