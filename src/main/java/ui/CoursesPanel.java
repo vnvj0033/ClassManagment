@@ -161,10 +161,6 @@ public class CoursesPanel extends JPanel {
         coursesTableModel.add(course);
     }
 
-    Course getCourse(int index) {
-        return coursesTableModel.get(index);
-    }
-
     void addCourseAddListener(ActionListener listener) {
         addButton.addActionListener(listener);
     }
@@ -183,10 +179,6 @@ public class CoursesPanel extends JPanel {
 
     JLabel getLabel(String name) {
         return (JLabel) Util.getComponent(this, name);
-    }
-
-    JList getList(String name) {
-        return (JList) Util.getComponent(this, name);
     }
 
     JButton getButton(String name) {

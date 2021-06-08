@@ -5,6 +5,7 @@ import util.ImageUtil;
 
 import javax.swing.*;
 import javax.swing.text.AbstractDocument;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
@@ -12,7 +13,7 @@ import java.util.Date;
 
 public class Sis {
     static final int WIDTH = 300;
-    static final int HEIGHT = 200;
+    static final int HEIGHT = 400;
     static final String COURSES_TITLE = "Course Listing";
 
     private JFrame frame = new JFrame(COURSES_TITLE);
@@ -83,12 +84,32 @@ public class Sis {
     void createKeyListeners() {
         KeyListener listener = new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
+                backspaceInput(e);
                 setAddButtonState();
             }
         };
         panel.addFieldListener(CoursesPanel.DEPARTMENT_FIELD_NAME, listener);
         panel.addFieldListener(CoursesPanel.NUMBER_FIELD_NAME, listener);
         setAddButtonState();
+    }
+
+    private void backspaceInput(KeyEvent e) {
+        if (e.getKeyCode() != 8) return;
+
+        String[] fieldNames = {CoursesPanel.DEPARTMENT_FIELD_NAME, CoursesPanel.NUMBER_FIELD_NAME};
+
+        try {
+            removeFocusFieldText(fieldNames);
+        } catch (BadLocationException ignored) { }
+    }
+
+    private void removeFocusFieldText(String[] fieldNames) throws BadLocationException {
+        for (String fieldName : fieldNames){
+            JTextField textField = panel.getField(fieldName);
+            if (!textField.isFocusOwner())
+                continue;
+            textField.setText(textField.getText(0,textField.getText().length()-1));
+        }
     }
 
     private void createInputFilters() {
