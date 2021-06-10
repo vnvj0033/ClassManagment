@@ -68,7 +68,7 @@ public class CoursesPanel extends JPanel {
         return table;
     }
 
-    JPanel createBottomPanel() {
+    private JPanel createBottomPanel() {
         StatusBar statusBar = new StatusBar();
         statusBar.setBorder(BorderFactory.createLoweredBevelBorder());
         status = new Status(statusBar);
